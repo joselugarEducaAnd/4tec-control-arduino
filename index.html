@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-index">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="libs/jquery/jquery.min.js"> </script><script src="libs/common_i18n.js"> </script><script src="libs/common.js"> </script><script src="libs/exe_export.js"> </script><script src="libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css">
+<script src="idevices/text/text.js"></script><link rel="stylesheet" href="idevices/text/text.css">
+<link rel="stylesheet" href="content/css/base.css"><script src="theme/style.js"> </script><script src="theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="theme/style.css"><link rel="stylesheet" href="theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE00" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li class="active"> <a href="index.html" class="active main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE00" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">Sistemas que reaccionan</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE00" class="page-content">
+<article id="20261024TEC4SDA05BLK000" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV000" class="idevice_node text" data-idevice-path="idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV000&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Construir en equipo un <b>sistema automático</b>: algo que nota lo que pasa a su alrededor y responde solo, como una barrera que se abre al llegar un coche o un invernadero que se ventila cuando hace calor. Esta vez el circuito no decide por sí mismo: decide un <b>programa</b> que escribirás tú.</div><figure><a href="content/resources/diagrama_proyecto.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="content/resources/diagrama_proyecto.svg" alt="Diagrama de bloques de un parking: el sensor de ultrasonidos y la LDR entran al Arduino, que mueve el servo de la barrera y enciende luces."/></a><figcaption>Así será tu proyecto: sensores que entran, un programa que decide y actuadores que hacen algo. <a href="content/resources/diagrama_proyecto.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>Cómo vamos a trabajar</h2><p>Cada página del libro es una clase. En las siete primeras aprenderás a programar un <b>Arduino</b>, una placa pequeña que lee sensores y mueve cosas. Tendrás tu propio kit: una placa Arduino con un <b>shield</b>, una placa encajada encima que ya trae luces, pulsadores y sensores conectados. Cada clase termina con un <b>reto</b> que harás tú solo.</p><p>Siempre seguirás el mismo camino: primero pruebas el programa en un <b>simulador</b>, donde puedes equivocarte sin romper nada, y después lo subes a la placa de verdad. Desde la clase 8, en equipo, diseñaréis y construiréis vuestro propio sistema.</p><table><thead><tr><th>Herramienta</th><th>Para qué la usarás</th><th>Dónde aparece</th></tr></thead><tbody><tr><td>Tinkercad Circuits</td><td>Probar el circuito y el programa en el ordenador</td><td>Desde «Arduino: tu primer programa»</td></tr><tr><td>Arduino IDE</td><td>Pasar el programa del ordenador a la placa</td><td>Desde «Arduino: tu primer programa»</td></tr><tr><td>Arduino con el shield</td><td>Los retos de cada clase</td><td>Desde «Arduino: tu primer programa»</td></tr><tr><td>Servo, sensor de ultrasonidos, driver y motor</td><td>Mover cosas y medir distancias</td><td>«Servo y ultrasonidos» y «Motores con driver»</td></tr></tbody></table><h2>Qué entregarás</h2><table><thead><tr><th>Tarea de Moodle</th><th>Quién</th><th>Qué subes</th></tr></thead><tbody><tr><td>Retos Arduino (código)</td><td>Tú</td><td>El programa de cada reto (R1 a R6), pegado en el texto de la entrega</td></tr><tr><td>Sistema automático (vídeo + código)</td><td>Tu equipo</td><td>Un vídeo corto del sistema funcionando y su programa</td></tr><tr><td>Memoria técnica</td><td>Tu equipo</td><td>La memoria del proyecto en PDF</td></tr><tr><td>Examen · Control programado</td><td>Tú, en papel</td><td>Nada: es un examen escrito</td></tr></tbody></table><p>Las preguntas de «Ahora tú» de cada página no cuentan para la nota: sirven para comprobar si lo has entendido. Inténtalo primero y abre la solución después.</p><h2>Las normas del taller</h2><ul><li>El shield se pone y se quita con la placa <b>desconectada</b> del USB.</li><li>Desconecta el USB antes de cambiar cualquier cable.</li><li>Nunca unas directamente 5 V con GND: es un cortocircuito.</li><li>Comprueba que el shield no toca la parte metálica del conector USB de la placa. Si la toca, hace cortocircuito y algún pulsador o LED deja de funcionar: sepáralo un poco o pon cinta aislante encima del USB.</li><li>No gires a mano el brazo de un servo mientras está conectado.</li><li>Al terminar, cada pieza vuelve a su caja: la placa, el shield, el cable y lo que hayas usado.</li></ul><h2>Las páginas del libro</h2><ul><li><a href="html/1-sistemas-de-control.html">1. Sistemas de control</a></li><li><a href="html/2-arduino-tu-primer-programa.html">2. Arduino: tu primer programa</a></li><li><a href="html/3-pulsadores-y-pwm.html">3. Pulsadores y PWM</a></li><li><a href="html/4-sensores-analogicos-la-ldr.html">4. Sensores analógicos: la LDR</a></li><li><a href="html/5-servo-y-ultrasonidos.html">5. Servo y ultrasonidos</a></li><li><a href="html/6-motores-con-driver.html">6. Motores con driver</a></li><li><a href="html/7-variables-condiciones-y-bucles.html">7. Variables, condiciones y bucles</a></li><li><a href="html/8-tu-proyecto-elegir-y-planificar.html">8. Tu proyecto: elegir y planificar</a></li><li><a href="html/9-proyecto-el-sistema-en-el-simulador.html">9. Proyecto: el sistema en el simulador</a></li><li><a href="html/10-proyecto-montaje-por-partes.html">10. Proyecto: montaje por partes</a></li><li><a href="html/11-proyecto-integrar-y-depurar.html">11. Proyecto: integrar y depurar</a></li><li><a href="html/12-pruebas-finales-y-memoria-tecnica.html">12. Pruebas finales y memoria técnica</a></li><li><a href="html/13-demostracion-y-entrega.html">13. Demostración y entrega</a></li><li><a href="html/14-preparar-el-examen.html">14. Preparar el examen</a></li><li><a href="html/chuleta-pines-y-ordenes.html">Chuleta: pines y órdenes</a> (material de consulta)</li></ul>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<span class="nav-button nav-button-left" aria-hidden="true"><span>Anterior</span></span>
+<a href="html/1-sistemas-de-control.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

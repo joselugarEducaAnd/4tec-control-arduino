@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE11">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>11. Proyecto: integrar y depurar | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/trueorfalse/trueorfalse.js"></script><link rel="stylesheet" href="../idevices/trueorfalse/trueorfalse.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE11" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="../html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="../html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="../html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="../html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li class="active"> <a href="../html/11-proyecto-integrar-y-depurar.html" class="active no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="../html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE11" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">11. Proyecto: integrar y depurar</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE11" class="page-content">
+<article id="20261024TEC4SDA05BLK011" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV011" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV011&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Juntar todo el sistema y encontrar los fallos con el monitor serie, hasta que supere las pruebas del plan.</div><h2>Depurar: buscar el fallo con método</h2><p><b>Depurar</b> es encontrar y arreglar los fallos de un programa. La herramienta principal es el monitor serie: sirve para ver qué <b>lee</b> el Arduino y qué <b>decide</b>.</p><pre class="codigo"><code>Serial.print(&quot;distancia: &quot;);
+Serial.print(distancia);
+Serial.print(&quot;  barrera: &quot;);
+Serial.println(abierta);</code></pre><p><code>Serial.print</code> escribe sin saltar de línea y <code>Serial.println</code> salta al final. Con estas cuatro líneas, el monitor muestra algo como <code>distancia: 14.20  barrera: 1</code>, y se ve a la vez lo que mide el sensor y lo que ha decidido el programa.</p><h2>Las reglas del buen depurador</h2><ul><li><b>Cambia una sola cosa cada vez</b> y vuelve a probar. Si cambias tres, no sabrás cuál lo arregló, o cuál lo estropeó.</li><li><b>Mira, no adivines</b>: antes de tocar el umbral, mira en el monitor qué valores da el sensor de verdad.</li><li><b>Separa el problema</b>: si falla el sistema entero, prueba por separado la parte que sospechas.</li><li><b>Apunta</b> en la tabla de pruebas qué falló y qué cambiasteis. Esa tabla irá a la memoria.</li></ul><h2>Ejemplo resuelto: la barrera que no sube</h2><table><thead><tr><th>Paso</th><th>Qué hicimos</th><th>Qué vimos</th></tr></thead><tbody><tr><td>1</td><td>Acercamos la mano: la barrera no sube</td><td>—</td></tr><tr><td>2</td><td>Añadimos <code>Serial.println(distancia);</code></td><td>El monitor muestra siempre 0.00</td></tr><tr><td>3</td><td>Un 0 significa que no vuelve el eco: revisamos los cables</td><td>Trig y Echo estaban cruzados</td></tr><tr><td>4</td><td>Los cambiamos y probamos otra vez</td><td>Distancias correctas y la barrera sube</td></tr></tbody></table><div class="ahora"><p><b>Ahora tú.</b> Vuestro invernadero enciende el ventilador a 30 °C, pero el ventilador no arranca aunque calentéis el sensor con los dedos. En el monitor, la temperatura llega a 27 °C. ¿Qué hacéis?</p><details><summary>Ver solución</summary><p>El programa funciona: con los dedos no se llega a 30 °C. Para <b>probarlo</b>, bajad el límite a 26 °C de forma provisional y comprobad que el ventilador arranca. Después, volved a poner el valor real y apuntad en la memoria cómo lo comprobasteis.</p></details></div><div class="ahora"><p><b>Hoy en equipo.</b> Integrad el sistema completo, pasad las pruebas del plan y completad la tabla de pruebas: qué se esperaba, qué pasó y qué cambiasteis. Actualizad el Kanban al terminar.</p></div>
+</div>
+</div>
+</article><article id="block-1792837521153-x01ake962" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Compruébalo</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1792837521304-xvw14m1jw" class="idevice_node trueorfalse" data-idevice-path="../idevices/trueorfalse/" data-idevice-type="trueorfalse" data-idevice-component-type="json" data-idevice-json-data="{&quot;id&quot;:&quot;idevice-1792837521304-xvw14m1jw&quot;,&quot;typeGame&quot;:&quot;TrueOrFalse&quot;,&quot;eXeGameInstructions&quot;:&quot;&lt;p&gt;Decide si cada frase es verdadera o falsa.&lt;/p&gt;&quot;,&quot;eXeIdeviceTextAfter&quot;:&quot;&quot;,&quot;msgs&quot;:{&quot;msgStartGame&quot;:&quot;Pulsa aquí para empezar&quot;,&quot;msgTime&quot;:&quot;Tiempo por pregunta&quot;,&quot;msgNoImage&quot;:&quot;Pregunta sin imágenes&quot;,&quot;msgScoreScorm&quot;:&quot;La puntuación no se puede guardar porque esta página no forma parte  de un paquete SCORM.&quot;,&quot;msgEndGameScore&quot;:&quot;Comience la partida antes de guardar la puntuación.&quot;,&quot;msgOnlySaveScore&quot;:&quot;¡Solo puede guardar la puntuación una vez!&quot;,&quot;msgOnlySave&quot;:&quot;Solo puede guardar una vez&quot;,&quot;msgYouScore&quot;:&quot;Su puntuación&quot;,&quot;msgAuthor&quot;:&quot;Autoría&quot;,&quot;msgOnlySaveAuto&quot;:&quot;Su puntuación se guardará después de cada pregunta. Solo puede jugar una vez.&quot;,&quot;msgSaveAuto&quot;:&quot;Su puntuación se guardará automáticamente después de cada pregunta.&quot;,&quot;msgSeveralScore&quot;:&quot;Puede guardar la puntuación tantas veces como quiera&quot;,&quot;msgYouLastScore&quot;:&quot;La última puntuación guardada es&quot;,&quot;msgActityComply&quot;:&quot;Ya ha realizado esta actividad.&quot;,&quot;msgPlaySeveralTimes&quot;:&quot;Puede realizar esta actividad cuantas veces quiera&quot;,&quot;msgUncompletedActivity&quot;:&quot;Actividad no completada&quot;,&quot;msgSuccessfulActivity&quot;:&quot;Actividad superada. Puntuación: %s&quot;,&quot;msgUnsuccessfulActivity&quot;:&quot;Actividad no superada. Puntuación: %s&quot;,&quot;msgTypeGame&quot;:&quot;Verdadero o falso&quot;,&quot;msgFeedback&quot;:&quot;Retroalimentación&quot;,&quot;msgSuggestion&quot;:&quot;Sugerencia&quot;,&quot;msgSolution&quot;:&quot;Solución&quot;,&quot;msgQuestion&quot;:&quot;Pregunta&quot;,&quot;msgTrue&quot;:&quot;Verdadero&quot;,&quot;msgFalse&quot;:&quot;Falso&quot;,&quot;msgOk&quot;:&quot;Correcto&quot;,&quot;msgKO&quot;:&quot;Incorrecto&quot;,&quot;msgShow&quot;:&quot;Mostrar&quot;,&quot;msgHide&quot;:&quot;Ocultar&quot;,&quot;msgCheck&quot;:&quot;Comprobar&quot;,&quot;msgReboot&quot;:&quot;¡Prueba otra vez!&quot;,&quot;msgScore&quot;:&quot;Puntuación&quot;,&quot;msgWeight&quot;:&quot;Peso&quot;,&quot;msgNext&quot;:&quot;Siguiente&quot;,&quot;msgPrevious&quot;:&quot;Anterior&quot;},&quot;questionsRandom&quot;:false,&quot;percentageQuestions&quot;:100,&quot;isTest&quot;:false,&quot;time&quot;:0,&quot;questionsGame&quot;:[{&quot;question&quot;:&quot;&lt;p&gt;Si cambias tres cosas a la vez y el sistema funciona, sabes cuál era el fallo.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;No. Cambia una sola cosa cada vez y vuelve a probar.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Cuál de las tres lo arregló?&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;Serial.print escribe en el monitor sin saltar de línea.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. Serial.println es la que salta al final.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Fíjate en la diferencia de nombre, println.&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;Antes de cambiar un umbral hay que mirar en el monitor serie qué lee el sensor.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. Mira, no adivines.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿De dónde sale un buen umbral?&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;Si el sensor de ultrasonidos da siempre 0, el eco no está volviendo.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. pulseIn devuelve 0 si el eco no vuelve a tiempo. Revisa Trig y Echo.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Qué devuelve pulseIn cuando se agota el tiempo?&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;Si el sistema entero falla, lo mejor es borrar el programa y empezar de cero.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;No. Prueba por separado la parte que sospechas y busca el fallo.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Separa el problema en partes.&lt;/p&gt;&quot;,&quot;solution&quot;:0}],&quot;isScorm&quot;:0,&quot;textButtonScorm&quot;:&quot;Guardar la puntuación&quot;,&quot;repeatActivity&quot;:true,&quot;weighted&quot;:100,&quot;evaluation&quot;:false,&quot;evaluationID&quot;:&quot;&quot;,&quot;showSlider&quot;:false,&quot;ideviceId&quot;:&quot;idevice-1785313017315-5i36ev3um&quot;}" data-idevice-template="trueorfalse.html">
+<div class="exe-trueorfalse-container">
+  
+    <div class="game-evaluation-ids js-hidden" data-id="idevice-1792837521304-xvw14m1jw" data-evaluationb="false" data-evaluationid=""></div>
+        <div class="TOFP-instructions"><p>Decide si cada frase es verdadera o falsa.</p></div>
+        <div class="TOFP-MainContainer" data-instance="idevice-1792837521304-xvw14m1jw" id="tofPMainContainer-idevice-1792837521304-xvw14m1jw">
+            <div class="TOFP-GameContainer" id="tofPGameContainer-idevice-1792837521304-xvw14m1jw">
+                <div class="TOFP-GameScoreBoard TOFP-EHidden">
+                    <div class="TOFP-TimeNumber">
+                        <strong><span class="sr-av">Tiempo por pregunta:</span></strong>
+                        <p id="tofPPTime-idevice-1792837521304-xvw14m1jw" class="TOFP-PTime">00:00:</p>
+                    </div>
+                </div>
+                <div class="TOFP-MessgeDiv" id="tofPMessageDiv-idevice-1792837521304-xvw14m1jw">
+                    <div class="TOFP-Message" id="tofPMessage-idevice-1792837521304-xvw14m1jw"></div>
+                </div>
+                <div class="TOFP-StartGameDiv TOFP-EHidden" id="tofPStartGameDiv-idevice-1792837521304-xvw14m1jw">
+                    <button  id="tofPStartGame-idevice-1792837521304-xvw14m1jw" type="button" class="btn btn-primary">Pulsa aquí para empezar</button>
+                </div>
+                <div class="TOFP-Multimedia " id="tofPMultimedia-idevice-1792837521304-xvw14m1jw">
+                </div>
+                <div class="TOFP-CheckTestDiv TOFP-EHidden" id="tofPCheckTestDiv-idevice-1792837521304-xvw14m1jw">
+                    <button id="tofPCheckTest-idevice-1792837521304-xvw14m1jw" type="button" class="btn btn-primary">Comprobar</button>
+                    <button id="tofRebootTest-idevice-1792837521304-xvw14m1jw" type="button" class="btn btn-primary TOFP-EHidden">¡Prueba otra vez!</button>
+                </div>
+        </div> 
+        <div class="Games-BottonContainer">
+            <div class="Games-GetScore">
+                <input id="tofPSendScore-idevice-1792837521304-xvw14m1jw" type="button" value="Guardar la puntuación" class="feedbackbutton Games-SendScore" style="display:none"/> <span class="Games-RepeatActivity"></span>
+            </div>
+        </div>
+        <div class="TOFP-After"></div>
+        <div class="questionsMedia" style="display:none"></div>
+</div>
+
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/10-proyecto-montaje-por-partes.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/12-pruebas-finales-y-memoria-tecnica.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

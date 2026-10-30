@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE13">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>13. Demostración y entrega | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE13" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="../html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="../html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="../html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="../html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="../html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li class="active"> <a href="../html/13-demostracion-y-entrega.html" class="active no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE13" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">13. Demostración y entrega</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE13" class="page-content">
+<article id="20261024TEC4SDA05BLK013" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV013" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV013&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Enseñar el sistema funcionando, explicar cómo decide con vocabulario técnico y entregar el producto y la memoria.</div><h2>La demostración</h2><p>Cada equipo tiene entre tres y cuatro minutos. Os podéis repartir las partes:</p><ol class="pasos"><li><b>El problema:</b> qué resuelve vuestro sistema y dónde se usaría.</li><li><b>El diagrama de bloques:</b> qué mide, quién decide y qué hace. ¿Lazo abierto o cerrado?</li><li><b>La prueba en vivo:</b> pasad delante del grupo dos o tres pruebas de vuestro plan.</li><li><b>Una pregunta</b> de vuestros compañeros.</li></ol><div class="idea"><b>Idea clave.</b> Habla de lo que hace el sistema con las palabras de la unidad: sensor, actuador, umbral, lazo cerrado, PWM, driver. Y si algo falla en vivo, explicad qué creéis que pasa: también cuenta.</div><h2>El vídeo</h2><ul><li>El vídeo se graba en la clase 12, al terminar las pruebas: unos 30 segundos, con el móvil o con una tablet, en los que se vea el sistema haciendo sus pruebas.</li><li>Que se vea el sistema, no vuestras caras. Si queréis, poned un cartel con las iniciales del equipo.</li><li>El nombre del archivo, sin datos personales: <code>sistema_automatico.mp4</code>.</li></ul><h2>Qué se entrega</h2><table><thead><tr><th>Tarea de Moodle</th><th>Qué se sube</th><th>Quién</th></tr></thead><tbody><tr><td>Sistema automático (vídeo + código)</td><td>El vídeo y, en el texto de la entrega, el programa final completo</td><td>Una persona del equipo, para todo el equipo</td></tr><tr><td>Memoria técnica</td><td>La memoria en PDF (en Google Docs: Archivo → Descargar → Documento PDF)</td><td>Una persona del equipo, para todo el equipo</td></tr></tbody></table><p>Al terminar, desmontad lo que no sea vuestro, y devolved cada pieza a su caja.</p>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/12-pruebas-finales-y-memoria-tecnica.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/14-preparar-el-examen.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

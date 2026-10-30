@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE05">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>5. Servo y ultrasonidos | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/relate/relate.js"></script><link rel="stylesheet" href="../idevices/relate/relate.css">
+<script src="../libs/jquery-ui/jquery-ui.min.js"> </script>
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE05" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="../html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li class="active"> <a href="../html/5-servo-y-ultrasonidos.html" class="active no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="../html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="../html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="../html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="../html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE05" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">5. Servo y ultrasonidos</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE05" class="page-content">
+<article id="20261024TEC4SDA05BLK005" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV005" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV005&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Mover un servo hasta el ángulo que calcule el programa y medir distancias con un sensor de ultrasonidos: las dos piezas de una barrera automática.</div><h2>El servo</h2><p>Un <b>servo</b> es un motor pequeño que no da vueltas: gira hasta un <b>ángulo</b> entre 0° y 180° y se queda ahí, haciendo fuerza para no moverse. Dentro lleva su propio sensor de posición: es un sistema en <b>lazo cerrado</b> en miniatura. El nuestro es el <b>SG90</b>.</p><p>Tiene tres cables: <b>marrón</b> (GND), <b>rojo</b> (5 V) y <b>naranja</b> (la señal, que le dice a qué ángulo ir). Se enchufa al <b>puerto A3</b> del shield, que tiene justo esas tres patillas, rotuladas <b>GND</b>, <b>VCC</b> y <b>A3</b>: el marrón va en GND, el rojo en VCC y el naranja en A3. A3 es una entrada analógica, pero los pines A0 a A5 también funcionan como pines digitales, y para el servo eso es lo que hace falta.</p><figure class="fig-media"><a href="../content/resources/servo_conector_a3.jpg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/servo_conector_a3.jpg" alt="Foto ampliada del puerto A3 del shield: tres patillas en un conector amarillo, rotuladas GND, VCC y A3 de izquierda a derecha. Debajo, una flecha marrón señala GND, una roja VCC y una naranja A3."/></a><figcaption>El puerto A3 del shield, tal como está rotulado: el cable marrón del servo va en GND, el rojo en VCC y el naranja, que lleva la señal, en A3. <a href="../content/resources/servo_conector_a3.jpg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>Programar el servo</h2><p>Para el servo se usa una <b>librería</b>: un conjunto de órdenes ya escritas que se añaden con <code>#include</code>.</p><table><thead><tr><th>Orden</th><th>Qué hace</th></tr></thead><tbody><tr><td><code>#include &lt;Servo.h&gt;</code></td><td>Añade la librería del servo. Va en la primera línea.</td></tr><tr><td><code>Servo barrera;</code></td><td>Crea un servo y le pone un nombre (aquí, <code>barrera</code>).</td></tr><tr><td><code>barrera.attach(A3);</code></td><td>Le dice en qué pin está su señal. Va en <code>setup()</code>.</td></tr><tr><td><code>barrera.write(90);</code></td><td>Lo lleva a 90°. Cualquier número de 0 a 180.</td></tr></tbody></table><div class="idea"><b>Ojo con el PWM.</b> Cuando un programa usa la librería del servo, los pines <b>9 y 10</b> dejan de dar valores intermedios con <code>analogWrite</code>: solo encienden (255) o apagan (0). En el LED RGB eso afecta al rojo (9) y al azul (10).</div><h2>Pasar de un rango a otro: map</h2><p>El potenciómetro da números de 0 a 1023 y el servo quiere ángulos de 0 a 180. <code>map</code> hace la regla de tres:</p><p class="formula">angulo = map(lectura, 0, 1023, 0, 180);</p><p>Se lee así: «convierte <code>lectura</code>, que va de 0 a 1023, a un número que vaya de 0 a 180». Si la lectura es 512 (la mitad), da 90 (la mitad). <code>map</code> trabaja con números enteros: los decimales se tiran, no se redondean.</p><iframe src="../content/resources/widgets/mapear.html" name="servo" title="Mapear rangos con map(): potenciómetro, servo y LED" width="100%" height="1370" loading="lazy" style="border:1px solid #c5dccd;border-radius:12px"></iframe><p class="cod-tit">Ejemplo: el potenciómetro mueve el servo</p><pre class="codigo"><code>// El potenciómetro mueve el servo
+#include &lt;Servo.h&gt;               // librería para manejar servos
+
+Servo barrera;                   // un servo que se llama «barrera»
+const int POT = A0;
+
+void setup() {
+  barrera.attach(A3);            // la señal del servo va al puerto A3
+}
+
+void loop() {
+  int lectura = analogRead(POT);               // de 0 a 1023
+  int angulo = map(lectura, 0, 1023, 0, 180);  // de 0 a 180 grados
+  barrera.write(angulo);
+  delay(20);
+}</code></pre><div class="ahora"><p><b>Ahora tú.</b> Si el potenciómetro da 300, ¿a qué ángulo va el servo? Calcúlalo como lo haría <code>map</code>.</p><details><summary>Ver solución</summary><p>300 · 180 / 1023 = 52,78… y <code>map</code> tira los decimales: <b>52°</b>.</p></details></div><h2>El sensor de ultrasonidos</h2><p>El sensor <b>HC-SR04</b> mide distancias como un murciélago: emite un sonido demasiado agudo para que lo oigamos y mide cuánto tarda en volver el eco.</p><figure><a href="../content/resources/ultrasonidos.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/ultrasonidos.svg" alt="El sensor emite un pulso, el eco vuelve del obstáculo; la distancia es el tiempo por 0,0343 entre 2. Conexión: VCC a 5 V, Trig a D7, Echo a D8 y GND a GND."/></a><figcaption>Trig dispara el sonido y Echo avisa cuando vuelve. <a href="../content/resources/ultrasonidos.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Tiene cuatro patillas. Con cables, <b>VCC</b> va a 5 V, <b>Trig</b> al pin 7, <b>Echo</b> al pin 8 y <b>GND</b> a GND. En el shield, los puertos D7 y D8 te dan esas señales, y cada uno tiene también su 5 V y su GND.</p><p class="cod-tit">Ejemplo: medir la distancia y verla en el monitor serie</p><pre class="codigo"><code>// Medir distancias con el sensor de ultrasonidos
+const int TRIG = 7;              // disparo
+const int ECHO = 8;              // eco
+
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);      // disparo de 10 microsegundos
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  long tiempo = pulseIn(ECHO, HIGH, 30000);    // microsegundos de ida y vuelta (0 si no vuelve)
+  float distancia = tiempo * 0.0343 / 2;       // en centímetros
+  Serial.println(distancia);
+  delay(100);
+}</code></pre><ul><li><code>delayMicroseconds(10)</code> espera 10 microsegundos (millonésimas de segundo): es el disparo.</li><li><code>pulseIn(ECHO, HIGH, 30000)</code> devuelve cuántos microsegundos tarda el eco. Si en 30 000 µs no vuelve, devuelve 0.</li><li><code>long</code> y <code>float</code> son tipos de número: <code>long</code> admite enteros muy grandes y <code>float</code> admite decimales. En el programa los decimales se escriben con <b>punto</b>: <code>0.0343</code>.</li></ul><div class="ahora"><p><b>Ahora tú.</b> El eco tarda 1166 µs en volver. ¿A qué distancia está el obstáculo?</p><details><summary>Ver solución</summary><p>d = 1166 · 0,0343 / 2 = <b>20,0 cm</b>.</p></details></div><h2>En Tinkercad: una copia con el servo y el sensor</h2><p>El servo y el sensor de ultrasonidos <b>no forman parte del shield</b>: se enchufan en sus puertos libres. Por eso no se añaden al Shield virtual, que tiene que seguir siendo igual que el shield. Para el reto, duplica el Shield virtual y conéctaselos a la copia. Es lo que harás siempre que un montaje necesite algo que el shield no trae.</p><figure><a href="../content/resources/tc_sv_servo_detalle.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_servo_detalle.svg" alt="Captura de Tinkercad con el microservomotor a la derecha de la placa de los sensores y sus tres cables: tierra al carril −, alimentación al carril + y señal al pin A3."/></a><figcaption>El servo y sus tres cables. <a href="../content/resources/tc_sv_servo_detalle.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><ol class="pasos"><li>En tus diseños, duplica el <b>Shield virtual</b> (rueda dentada → <b>Duplicar</b>) y llama a la copia <b>Reto R4 - Barrera</b>.</li><li>Abre la copia y arrastra un <b>Microservomotor</b> a la derecha de la placa de los sensores. Pasa el ratón por las tres patillas de su conector: de izquierda a derecha son tierra, alimentación y señal.</li><li>Une la tierra con el carril − de la placa de los sensores, la alimentación con el carril + y la señal con el pin <b>A3</b> del Arduino.</li><li>Añade un <b>Sensor de distancia ultrasónico (4 pines)</b> cerca de la placa de los sensores. Pasa el ratón por sus patillas para ver cuál es cada una: une «Potencia» con el carril +, «Tierra» con el carril −, «Desencadenador» (es <b>Trig</b>) con el pin <b>7</b> y «Eco» (es <b>Echo</b>) con el pin <b>8</b>.</li><li>Durante la simulación, haz clic en el sensor: aparece delante un objeto que puedes arrastrar para cambiar la distancia.</li></ol><figure class="fig-media"><a href="../content/resources/tc_sv_completo.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_completo.svg" alt="Captura de Tinkercad de la copia para la barrera: la placa de las luces y los pulsadores arriba, el Arduino en el centro, la placa de los sensores debajo y el servo a su derecha."/></a><figcaption>La copia para la barrera: el Shield virtual y, además, el servo en A3. El sensor de ultrasonidos se añade igual, a los pines 7 y 8. <a href="../content/resources/tc_sv_completo.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Para probar el servo, pega en la copia el ejemplo del potenciómetro que mueve el servo y gira el mando durante la simulación:</p><figure class="fig-media"><a href="../content/resources/tc_sv_servo_simula.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_servo_simula.svg" alt="Simulación en Tinkercad: al girar el mando del potenciómetro, el brazo del servo gira con él."/></a><figcaption>El brazo del servo sigue al mando del potenciómetro. <a href="../content/resources/tc_sv_servo_simula.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>El reto de hoy</h2><div class="reto"><p class="reto-tit">Reto R4 · Barrera automática</p><p>La barrera (el servo) está bajada, a 0°. Cuando algo se acerca a menos de 20 cm del sensor, sube a 90°, espera 3 segundos y vuelve a comprobar. Pruébala en tu copia <b>Reto R4 - Barrera</b> y después en tu placa.</p><p><b>Está conseguido cuando…</b> en la placa, la barrera sube al acercar la mano a menos de 20 cm y baja al retirarla.</p><details><summary>Si te atascas: el programa con huecos</summary><p>Rellena cada <b>____</b>: cada hueco es una palabra, un número o un signo que ya has visto en esta página.</p><pre class="codigo"><code>// Reto R4: barrera que se levanta cuando algo se acerca
+#include &lt;Servo.h&gt;
+
+Servo barrera;
+const int TRIG = 7;
+const int ECHO = 8;
+const int CERCA = ____;            // centímetros: más cerca que esto, se abre
+
+void setup() {
+  barrera.attach(____);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  Serial.begin(9600);
+  barrera.write(0);              // empieza bajada
+}
+
+void loop() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  long tiempo = pulseIn(ECHO, HIGH, 30000);
+  float distancia = tiempo * 0.0343 / 2;
+  Serial.println(distancia);
+  if (distancia &gt; 0 &amp;&amp; distancia &lt; ____) {   // 0 = no ha vuelto el eco
+    barrera.write(____);           // sube
+    delay(3000);                 // espera a que pase
+  } else {
+    barrera.write(____);            // baja
+  }
+  delay(100);
+}</code></pre></details><p><b>Cuando funcione en la placa:</b> enséñalo funcionando para que se anote en la lista de los retos. Después, en la tarea de Moodle <b>Retos Arduino (código)</b>, pulsa <b>Editar entrega</b> (la primera vez, <b>Agregar entrega</b>), escribe <b>R4</b> y pega debajo tu programa. Pulsa <b>Guardar cambios</b>. Cada reto nuevo va debajo del anterior.</p></div><div class="ampliacion"><b>Para ir más allá.</b> Añade un semáforo con el LED RGB: verde mientras la barrera está subida y rojo mientras está bajada.</div><div class="falla"><b>Si algo falla</b><table><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El servo tiembla o no se mueve</td><td>Mira el orden de los cables en el puerto A3: marrón en GND, rojo en VCC y naranja en A3.</td></tr><tr><td>La distancia siempre vale 0</td><td>¿Están cruzados Trig y Echo? ¿Llega el eco? Apunta el sensor a una superficie plana.</td></tr><tr><td>La barrera sube y baja sin parar</td><td>Mira en el monitor serie qué distancia lee. Si cambia mucho, sepárate un poco del límite de 20 cm.</td></tr></tbody></table></div><div class="idea"><b>Cuidado.</b> Nunca gires a mano el brazo de un servo conectado: estropearías sus engranajes.</div>
+</div>
+</div>
+</article><article id="block-1792837521407-lvm7nu3mh" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Compruébalo</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1792837521837-a1y4v33e0" class="idevice_node relate" data-idevice-path="../idevices/relate/" data-idevice-type="relate">
+<div class="relaciona-IDevice"><div class="relaciona-instructions gameQP-instructions"><p>Relaciona cada orden con lo que hace.</p></div><div class="relaciona-DataGame js-hidden">{"typeGame": "Relaciona", "author": "", "randomCards": true, "instructions": "<p>Relaciona cada orden con lo que hace.</p>", "showMinimize": false, "itinerary": {"showClue": false, "clueGame": "", "percentageClue": 40, "showCodeAccess": false, "codeAccess": "", "messageCodeAccess": ""}, "cardsGame": [{"url": "", "x": 0, "y": 0, "author": "", "alt": "", "audio": "", "color": "#000000", "backcolor": "#ffffff", "eText": "barrera.attach%28A3%29", "urlBk": "", "xBk": 0, "yBk": 0, "authorBk": "", "altBk": "", "audioBk": "", "colorBk": "#000000", "backcolorBk": "#ffffff", "eTextBk": "Dice%20en%20qu%C3%A9%20pin%20est%C3%A1%20la%20se%C3%B1al%20del%20servo"}, {"url": "", "x": 0, "y": 0, "author": "", "alt": "", "audio": "", "color": "#000000", "backcolor": "#ffffff", "eText": "barrera.write%2890%29", "urlBk": "", "xBk": 0, "yBk": 0, "authorBk": "", "altBk": "", "audioBk": "", "colorBk": "#000000", "backcolorBk": "#ffffff", "eTextBk": "Lleva%20el%20servo%20a%2090%20grados"}, {"url": "", "x": 0, "y": 0, "author": "", "alt": "", "audio": "", "color": "#000000", "backcolor": "#ffffff", "eText": "map%28lectura%2C%200%2C%201023%2C%200%2C%20180%29", "urlBk": "", "xBk": 0, "yBk": 0, "authorBk": "", "altBk": "", "audioBk": "", "colorBk": "#000000", "backcolorBk": "#ffffff", "eTextBk": "Convierte%20la%20lectura%20en%20un%20%C3%A1ngulo"}, {"url": "", "x": 0, "y": 0, "author": "", "alt": "", "audio": "", "color": "#000000", "backcolor": "#ffffff", "eText": "pulseIn%28ECHO%2C%20HIGH%2C%2030000%29", "urlBk": "", "xBk": 0, "yBk": 0, "authorBk": "", "altBk": "", "audioBk": "", "colorBk": "#000000", "backcolorBk": "#ffffff", "eTextBk": "Mide%20cu%C3%A1nto%20tarda%20en%20volver%20el%20eco"}, {"url": "", "x": 0, "y": 0, "author": "", "alt": "", "audio": "", "color": "#000000", "backcolor": "#ffffff", "eText": "tiempo%20%2A%200.0343%20%2F%202", "urlBk": "", "xBk": 0, "yBk": 0, "authorBk": "", "altBk": "", "audioBk": "", "colorBk": "#000000", "backcolorBk": "#ffffff", "eTextBk": "Calcula%20la%20distancia%20en%20cent%C3%ADmetros"}], "isScorm": 0, "textButtonScorm": "Guardar la puntuación", "repeatActivity": true, "weighted": 100, "textAfter": "", "version": 2, "percentajeCards": 100, "type": 2, "showSolution": true, "timeShowSolution": 3, "time": 3, "evaluation": false, "evaluationID": "f96bc37c-5aaf-40e4-af65-a544218a46a6", "id": "idevice-1792837521837-a1y4v33e0", "msgs": {"msgSubmit": "Enviar", "msgClue": "¡Genial! La pista es:", "msgCodeAccess": "Código de acceso", "msgPlayStart": "Pulsa aquí para jugar", "msgScore": "Puntuación", "msgErrors": "Errores", "msgHits": "Aciertos", "msgMinimize": "Minimizar", "msgMaximize": "Maximizar", "msgFullScreen": "Pantalla Completa", "msgExitFullScreen": "Salir del modo pantalla completa", "msgNoImage": "Pregunta sin imágenes", "msgEndGameScore": "Comience la partida antes de guardar la puntuación.", "msgScoreScorm": "La puntuación no se puede guardar porque esta página no forma parte  de un paquete SCORM.", "msgOnlySaveScore": "¡Solo puede guardar la puntuación una vez!", "msgOnlySave": "Solo puede guardar una vez", "msgInformation": "Información", "msgYouScore": "Su puntuación", "msgAuthor": "Autoría", "msgOnlySaveAuto": "Su puntuación se guardará después de cada pregunta. Solo puede jugar una vez.", "msgSaveAuto": "Su puntuación se guardará automáticamente después de cada pregunta.", "msgSeveralScore": "Puede guardar la puntuación tantas veces como quiera", "msgYouLastScore": "La última puntuación guardada es", "msgActityComply": "Ya ha realizado esta actividad.", "msgPlaySeveralTimes": "Puede realizar esta actividad cuantas veces quiera", "msgClose": "Cerrar", "msgAudio": "Audio", "msgNumQuestions": "Número de tarjetas", "msgTryAgain": "Necesitas al menos %s% de respuestas correctas para obtener la información. Inténtalo de nuevo.", "msgEndGameM": "Has completado el juego. Tu puntuación es %s.", "msgUncompletedActivity": "Actividad no completada", "msgSuccessfulActivity": "Actividad superada. Puntuación: %s", "msgUnsuccessfulActivity": "Actividad no superada. Puntuación: %s", "msgTypeGame": "Relaciona", "msgCheck": "Comprobar", "msgRestart": "Reiniciar"}}</div><div class="game-evaluation-ids js-hidden" data-id="idevice-1792837521837-a1y4v33e0" data-evaluationb="false" data-evaluationid="f96bc37c-5aaf-40e4-af65-a544218a46a6"></div><div class="relaciona-bns js-hidden">Su navegador no es compatible con esta herramienta.</div></div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/4-sensores-analogicos-la-ldr.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/6-motores-con-driver.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

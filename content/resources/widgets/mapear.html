@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapear rangos con map()</title>
+<style>
+/* Widget W1 · 4.º TEC · SdA 05 (y reutilizable en 1.º TECI 10). Autocontenido: sin red ni almacenamiento.
+   Modo inicial por el name del iframe (o #modo, o ?modo=): servo · brillo */
+:root{--t:#9c4419;--to:#6e2f10;--tinte:#f8ede6;--tx:#25243f;--az:#1b4d7e;--rj:#b3261e;--vd:#1e7a3c;
+--ln:#263c4a;--mas:#b93649;--menos:#176c9a;--luz:#16725e;
+--kw:#00838a;--fn:#c0560b;--num:#5b3fa0;--com:#6f7a80}
+*{box-sizing:border-box}
+body{margin:0;padding:18px;font:16px/1.45 Verdana,"DejaVu Sans",Arial,sans-serif;color:var(--tx);background:#fbf8f6}
+h1{font-size:20px;color:var(--to);margin:0 0 6px}
+p{margin:4px 0 10px}
+.modos,.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.fila>span{font-weight:bold;margin-right:2px}
+button{font:inherit;padding:6px 12px;border:2px solid var(--t);background:#fff;color:var(--to);border-radius:20px;cursor:pointer}
+button:hover{background:var(--tinte)}
+button[aria-pressed="true"]{background:var(--t);color:#fff}
+button:focus-visible,input:focus-visible{outline:3px solid var(--az);outline-offset:2px}
+.ctl{display:grid;grid-template-columns:minmax(170px,max-content) 1fr 92px;gap:6px 12px;align-items:center;margin:6px 0}
+.ctl label{font-weight:bold}
+.ctl input{width:100%;accent-color:var(--t)}
+.ctl output{font-variant-numeric:tabular-nums;text-align:right}
+.chk{display:flex;gap:8px;align-items:center;margin:6px 0}
+.chk input{width:20px;height:20px;accent-color:var(--t)}
+.rej{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin:10px 0}
+svg{width:100%;height:auto;display:block;background:#fff;border:1px solid #e3cfc2;border-radius:10px}
+svg text{font-family:Verdana,"DejaVu Sans",Arial,sans-serif}
+pre{margin:0;padding:10px 12px;background:#fff;border:1px solid #e3cfc2;border-left:5px solid var(--kw);border-radius:8px;
+font:14px/1.55 "DejaVu Sans Mono","Liberation Mono",Consolas,monospace;white-space:pre;overflow-x:auto}
+.kw{color:var(--kw);font-weight:bold}.fn{color:var(--fn)}.nu{color:var(--num)}.co{color:var(--com)}
+.vals{font:14px/1.55 "DejaVu Sans Mono","Liberation Mono",Consolas,monospace;padding:10px 12px;background:var(--tinte);border-radius:8px}
+.vals b{color:var(--to)}
+#res{display:block;padding:12px 14px;background:#fff;border:2px solid var(--t);border-radius:10px;min-height:4.5em;margin-top:10px}
+#res b{color:var(--to)}
+#res .mal{color:var(--rj);font-weight:bold}
+.cuenta{font-size:14px;color:#3d3d52;margin-top:8px}
+.nota{font-size:14px;color:#4a4a5a}
+@media (max-width:560px){.rej{grid-template-columns:1fr}}
+@media (max-width:520px){body{padding:10px;font-size:15px}h1{font-size:18px}body>p:first-of-type{font-size:14px}button{padding:4px 9px;font-size:13px}
+.fila>span{flex-basis:100%}.ctl{grid-template-columns:1fr 60px}.ctl label{grid-column:1/2}.ctl input{grid-column:1/3;grid-row:2}.ctl output{grid-column:2;grid-row:1}
+pre{font-size:13px;padding:8px}.vals{display:none}.rej{gap:8px;margin:8px 0}.cuenta{font-size:13px}}
+</style>
+</head>
+<body>
+<h1>Mapear rangos con <code>map()</code></h1>
+<p><code>analogRead()</code> convierte la tensión del potenciómetro (0–5 V) en un número de 0 a 1023, y <code>map()</code> lo pasa al rango del servo o del LED con una regla de tres.</p>
+
+<div class="modos" role="group" aria-label="Qué controla el potenciómetro">
+  <button type="button" id="mS">Servo</button>
+  <button type="button" id="mB">LED con PWM</button>
+</div>
+
+<div class="ctl"><label for="pot">Gira el potenciómetro</label><input id="pot" type="range" min="0" max="1023" step="1" value="512"><output id="oPot" for="pot"></output></div>
+
+<div class="fila" role="group" aria-label="Rango de salida de map()" id="filaSal"></div>
+<div class="fila" role="group" aria-label="Parte del potenciómetro que se usa">
+  <span>Del potenciómetro uso:</span>
+  <button type="button" id="eT">todo: 0–1023</button>
+  <button type="button" id="eC">centro: 200–800</button>
+</div>
+<div class="chk"><input type="checkbox" id="lim"><label for="lim">Añadir <code>constrain()</code> para no salir del rango</label></div>
+
+<div class="rej">
+  <div><svg id="vEnt" viewBox="0 0 300 175" role="img" aria-labelledby="tEnt"><title id="tEnt">Potenciómetro, tensión en A0 y lectura</title><g id="gEnt"></g></svg></div>
+  <div><svg id="vSal" viewBox="0 0 300 175" role="img" aria-labelledby="tSal"><title id="tSal">Resultado en el servo o en el LED</title><g id="gSal"></g></svg></div>
+</div>
+
+<div class="rej">
+  <pre id="cod" aria-label="Programa"></pre>
+  <div class="vals" id="vals" aria-live="polite"></div>
+</div>
+<div class="cuenta" id="cuenta"></div>
+<output id="res" role="status" aria-live="polite"></output>
+<p class="nota">Modelo: potenciómetro en A0 y LED en el pin 9, como en el shield, con 5 V ideales. En la placa real la lectura puede bailar uno o dos puntos.</p>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+/* número con coma decimal y espacio de miles a partir de 5 cifras */
+function f(v,d){d=d||0;const s=Math.abs(v).toFixed(d).split('.');let e=s[0];if(e.length>4)e=e.replace(/\B(?=(\d{3})+(?!\d))/g,' ');return (v<0?'−':'')+e+(d?','+s[1]:'');}
+function cociente(n,d){const q=n/d;return Number.isInteger(q)?ent(q):f(q,2).replace(/,(\d\d)$/,',$1…');}
+function ent(v){return (v<0?'−':'')+Math.abs(v);}
+/* map() de Arduino: aritmética entera (long), la división trunca hacia cero */
+function amap(x,a,b,c,d){return Math.trunc((x-a)*(d-c)/(b-a))+c;}
+const P={servo:{sal:[[0,180,'0–180°'],[30,150,'30–150°'],[180,0,'180–0°']]},
+         brillo:{sal:[[0,255,'0–255'],[255,0,'255–0']]}};
+let modo='servo', iSal=0, centro=false;
+const cands=[window.name,(location.hash||'').slice(1),new URLSearchParams(location.search).get('modo')];
+for(const c0 of cands){const c=(c0||'').replace(/^modo=/,''); if(P[c]){modo=c;break;}}
+
+let hechoPara=null;
+function botonesSalida(){
+  const fs=$('filaSal');
+  if(hechoPara===modo){[...fs.querySelectorAll('button')].forEach((b,i)=>b.setAttribute('aria-pressed',i===iSal));return;}
+  hechoPara=modo; fs.innerHTML='<span>map() a:</span>';
+  P[modo].sal.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.textContent=s[2];
+    b.setAttribute('aria-pressed',i===iSal);b.onclick=()=>{iSal=i;pinta();};fs.appendChild(b);});
+}
+function linea(cls,t){return '<span class="'+cls+'">'+t+'</span>';}
+const K=t=>linea('kw',t),F=t=>linea('fn',t),N=t=>linea('nu',t),C=t=>linea('co',t);
+
+function pinta(){
+  $('mS').setAttribute('aria-pressed',modo==='servo'); $('mB').setAttribute('aria-pressed',modo==='brillo');
+  $('eT').setAttribute('aria-pressed',!centro); $('eC').setAttribute('aria-pressed',centro);
+  botonesSalida();
+  const v=+$('pot').value, V=v*5/1023;
+  $('oPot').value=v;
+  const a=centro?200:0, b=centro?800:1023;
+  const [lo,hi]=P[modo].sal[iSal];
+  const r=amap(v,a,b,lo,hi);
+  const mn=Math.min(lo,hi), mx=Math.max(lo,hi);
+  const lim=$('lim').checked;
+  const fin=lim?Math.min(mx,Math.max(mn,r)):r;
+  const fuera=(r<mn||r>mx);
+  const nom=modo==='servo'?'angulo':'brillo';
+
+  /* --- entrada: potenciómetro y tensión --- */
+  const giro=-135+270*v/1023, rad=(giro-90)*Math.PI/180;
+  let s='<circle cx="70" cy="80" r="46" fill="#f3efe9" stroke="'+'#263c4a'+'" stroke-width="3"/>';
+  for(let k=0;k<=10;k++){const g=(-135+27*k-90)*Math.PI/180;s+='<line x1="'+(70+52*Math.cos(g)).toFixed(1)+'" y1="'+(80+52*Math.sin(g)).toFixed(1)+'" x2="'+(70+58*Math.cos(g)).toFixed(1)+'" y2="'+(80+58*Math.sin(g)).toFixed(1)+'" stroke="#8a8a96" stroke-width="2"/>';}
+  s+='<line x1="70" y1="80" x2="'+(70+40*Math.cos(rad)).toFixed(1)+'" y2="'+(80+40*Math.sin(rad)).toFixed(1)+'" stroke="#9c4419" stroke-width="7" stroke-linecap="round"/><circle cx="70" cy="80" r="7" fill="#9c4419"/>';
+  if(centro){[200,800].forEach(t=>{const g=(-135+270*t/1023-90)*Math.PI/180;s+='<line x1="'+(70+46*Math.cos(g)).toFixed(1)+'" y1="'+(80+46*Math.sin(g)).toFixed(1)+'" x2="'+(70+64*Math.cos(g)).toFixed(1)+'" y2="'+(80+64*Math.sin(g)).toFixed(1)+'" stroke="#1b4d7e" stroke-width="3"/>';});}
+  s+='<text x="70" y="152" font-size="13" text-anchor="middle" fill="#263c4a">potenciómetro</text>';
+  // barra de tensión
+  const yb=(V)=>145-120*V/5;
+  s+='<rect x="168" y="25" width="34" height="120" fill="#fff" stroke="#263c4a" stroke-width="2"/>';
+  s+='<rect x="168" y="'+yb(V).toFixed(1)+'" width="34" height="'+(145-yb(V)).toFixed(1)+'" fill="#b93649" opacity=".75"/>';
+  [0,1,2,3,4,5].forEach(t=>{s+='<line x1="202" y1="'+yb(t)+'" x2="209" y2="'+yb(t)+'" stroke="#263c4a"/><text x="213" y="'+(yb(t)+4)+'" font-size="12" fill="#555">'+t+' V</text>';});
+  if(centro){[200,800].forEach(t=>{const y=yb(t*5/1023);s+='<line x1="160" y1="'+y.toFixed(1)+'" x2="210" y2="'+y.toFixed(1)+'" stroke="#1b4d7e" stroke-width="2" stroke-dasharray="5 3"/>';});}
+  s+='<text x="185" y="17" font-size="13" text-anchor="middle" fill="#263c4a">A0</text>';
+  s+='<text x="150" y="170" font-size="14" text-anchor="middle" fill="#263c4a">A0 ≈ '+f(V,2)+' V → lectura '+v+'</text>';
+  $('gEnt').innerHTML=s;
+
+  /* --- salida --- */
+  let o='';
+  if(modo==='servo'){
+    const cx=150,cy=128,R=96,ang=Math.min(180,Math.max(0,fin));
+    const Pt=(g,rr)=>[cx+rr*Math.cos(Math.PI*(1-g/180)),cy-rr*Math.sin(Math.PI*(1-g/180))];
+    const arco=(g1,g2,col)=>{const p1=Pt(g1,R),p2=Pt(g2,R);return '<path d="M'+cx+' '+cy+' L'+p1[0].toFixed(1)+' '+p1[1].toFixed(1)+' A'+R+' '+R+' 0 0 1 '+p2[0].toFixed(1)+' '+p2[1].toFixed(1)+'Z" fill="'+col+'"/>';};
+    o+=arco(0,180,'#f1efe9')+arco(mn,mx,'#e5f3ea');
+    [0,45,90,135,180].forEach(g=>{const p=Pt(g,R+13);o+='<text x="'+p[0].toFixed(1)+'" y="'+(p[1]+4).toFixed(1)+'" font-size="12" text-anchor="middle" fill="#555">'+g+'°</text>';});
+    const e=Pt(ang,R-10);
+    o+='<line x1="'+cx+'" y1="'+cy+'" x2="'+e[0].toFixed(1)+'" y2="'+e[1].toFixed(1)+'" stroke="'+(fuera&&!lim?'#b3261e':'#6e2f10')+'" stroke-width="10" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="12" fill="#fff" stroke="#9c4419" stroke-width="3"/>';
+    o+='<text x="150" y="152" font-size="14" text-anchor="middle" fill="#263c4a">servo.write('+ent(fin)+')'+(fin!==ang?' → '+ang+'°':'')+'</text>';
+    o+='<text x="150" y="169" font-size="11" text-anchor="middle" fill="#1e7a3c">en verde: el rango que pediste a map()</text>';
+  } else {
+    const ok=fin>=0&&fin<=255, al=ok?fin/255:0;
+    o+='<rect width="300" height="175" fill="#1c1c22"/>';
+    if(ok){o+='<circle cx="150" cy="72" r="'+(36+40*al).toFixed(1)+'" fill="rgba(255,45,35,'+(0.38*al).toFixed(3)+')"/>';
+      o+='<circle cx="150" cy="72" r="30" fill="rgb('+Math.round(70+185*al)+','+Math.round(25+25*al)+','+Math.round(25+20*al)+')" stroke="#666" stroke-width="2"/>';}
+    else{o+='<circle cx="150" cy="72" r="30" fill="#3a3a42" stroke="#b3261e" stroke-width="3" stroke-dasharray="6 4"/><text x="150" y="83" font-size="30" font-weight="bold" text-anchor="middle" fill="#ffb4ab">?</text>';}
+    o+='<text x="150" y="145" font-size="14" text-anchor="middle" fill="#eee">analogWrite(9, '+ent(fin)+')</text>';
+    o+='<text x="150" y="165" font-size="12" text-anchor="middle" fill="#ccc">'+(ok?'encendido el '+Math.round(al*100)+' % del tiempo':'fuera de 0–255')+'</text>';
+  }
+  $('gSal').innerHTML=o;
+
+  /* --- código --- */
+  let c=K('int')+' lectura = '+F('analogRead')+'(A0);\n';
+  c+=K('int')+' '+nom+' = '+F('map')+'(lectura,\n'+' '.repeat(nom.length+11)+N(a)+', '+N(b)+',\n'+' '.repeat(nom.length+11)+N(lo)+', '+N(hi)+');\n';
+  if(lim) c+=nom+' = '+F('constrain')+'('+nom+', '+N(mn)+', '+N(mx)+');\n';
+  c+=(modo==='servo'?'servo.'+F('write')+'(angulo);':F('analogWrite')+'('+N(9)+', brillo);');
+  $('cod').innerHTML=c;
+  $('vals').innerHTML='A0 ≈ <b>'+f(V,2)+' V</b><br>lectura = <b>'+v+'</b><br>map() da <b>'+ent(r)+'</b>'+(lim?'<br>constrain() deja <b>'+ent(fin)+'</b>':'')+'<br>'+nom+' = <b>'+ent(fin)+'</b>';
+
+  /* --- cuenta --- */
+  const num=(v-a)*(hi-lo);
+  $('cuenta').innerHTML='Cuenta de <code>map()</code>: ('+v+' − '+a+') · ('+hi+' − '+lo+') / ('+b+' − '+a+') + '+lo+' = '+f(num)+' / '+(b-a)+' + '+lo+' = '+cociente(num,b-a)+' + '+lo+' → <b>'+ent(r)+'</b>. <code>map()</code> trabaja con enteros: descarta los decimales, no redondea.';
+
+  /* --- lectura del resultado --- */
+  let t;
+  if(fuera&&!lim){
+    t=modo==='servo'
+      ? '<span class="mal">map() da '+ent(r)+'°, fuera de '+mn+'–'+mx+'°.</span> La lectura está fuera del tramo '+a+'–'+b+' y <code>map()</code> no pone límites: sigue la recta. Marca <code>constrain()</code>.'
+      : '<span class="mal">map() da '+ent(r)+', y analogWrite() solo admite de 0 a 255.</span> La lectura está fuera del tramo '+a+'–'+b+' y <code>map()</code> no pone límites: el LED no hará lo que esperas. Marca <code>constrain()</code>.';
+  } else if(fuera&&lim){
+    t='<code>map()</code> daba '+ent(r)+'; <code>constrain()</code> lo deja en <b>'+ent(fin)+'</b>. Fuera del tramo '+a+'–'+b+' la salida se queda quieta en el tope.';
+  } else if(hi<lo){
+    t=modo==='servo'?'Rango al revés: cuando la lectura sube, el ángulo baja. Sirve si el servo está montado del otro lado: se arregla en el programa, sin tocar el cableado.':'Rango al revés: cuando la lectura sube, el brillo baja. Al girar a la derecha el LED se apaga.';
+  } else if(modo==='servo'){
+    t= mn>0||mx<180 ? 'El giro entero se reparte entre '+mn+'° y '+mx+'°: el servo nunca llega a sus extremos. Así se protege una barrera o un brazo que chocaría en los topes.'
+      : 'El giro entero se reparte entre 0° y 180°: cada punto de lectura mueve el servo unos '+f(180/1023,2)+'°.';
+  } else {
+    t='La lectura va de 0 a 1023 y el PWM de 0 a 255: cada 4 puntos de lectura el brillo sube 1 (1023 / 255 ≈ '+f(1023/255,2)+').';
+  }
+  if(centro&&!fuera) t+=' Con el tramo 200–800 basta media vuelta para todo el recorrido: el mando es más sensible.';
+  $('res').innerHTML=t;
+}
+$('mS').onclick=()=>{modo='servo';iSal=0;pinta();};
+$('mB').onclick=()=>{modo='brillo';iSal=0;pinta();};
+$('eT').onclick=()=>{centro=false;pinta();};
+$('eC').onclick=()=>{centro=true;pinta();};
+$('pot').addEventListener('input',pinta);
+$('lim').addEventListener('change',pinta);
+pinta();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PWM y mezcla de colores</title>
+<style>
+/* Widget W2 · 4.º TEC · SdA 05 (y reutilizable en 1.º TECI 10). Autocontenido: sin red ni almacenamiento.
+   Modo inicial por el name del iframe (o #modo, o ?modo=): pwm · rgb */
+:root{--t:#9c4419;--to:#6e2f10;--tinte:#f8ede6;--tx:#25243f;--az:#1b4d7e;--rj:#b3261e;--vd:#1e7a3c;
+--ln:#263c4a;--mas:#b93649;--kw:#00838a;--fn:#c0560b;--num:#5b3fa0;--com:#6f7a80}
+*{box-sizing:border-box}
+body{margin:0;padding:18px;font:16px/1.45 Verdana,"DejaVu Sans",Arial,sans-serif;color:var(--tx);background:#fbf8f6}
+h1{font-size:20px;color:var(--to);margin:0 0 6px}
+p{margin:4px 0 10px}
+.modos,.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.fila>span{font-weight:bold;margin-right:2px}
+button{font:inherit;padding:6px 12px;border:2px solid var(--t);background:#fff;color:var(--to);border-radius:20px;cursor:pointer}
+button:hover{background:var(--tinte)}
+button[aria-pressed="true"]{background:var(--t);color:#fff}
+button.pin{min-width:3.2em;padding:5px 8px;border-radius:8px;font-family:"DejaVu Sans Mono","Liberation Mono",Consolas,monospace}
+button.pin.sin{border-style:dashed}
+button:focus-visible,input:focus-visible{outline:3px solid var(--az);outline-offset:2px}
+.ctl{display:grid;grid-template-columns:minmax(150px,max-content) 1fr 60px;gap:6px 12px;align-items:center;margin:6px 0}
+.ctl label{font-weight:bold}
+.ctl input{width:100%;accent-color:var(--t)}
+.ctl.r input{accent-color:#c62828}.ctl.g input{accent-color:#2e7d32}.ctl.b input{accent-color:#1565c0}
+.ctl output{font-variant-numeric:tabular-nums;text-align:right}
+.rej{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;margin:10px 0}
+.rej2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin:10px 0}
+svg{width:100%;height:auto;display:block;background:#fff;border:1px solid #e3cfc2;border-radius:10px}
+svg text{font-family:Verdana,"DejaVu Sans",Arial,sans-serif}
+pre{margin:0;padding:10px 12px;background:#fff;border:1px solid #e3cfc2;border-left:5px solid var(--kw);border-radius:8px;
+font:14px/1.55 "DejaVu Sans Mono","Liberation Mono",Consolas,monospace;white-space:pre;overflow-x:auto}
+.kw{color:var(--kw);font-weight:bold}.fn{color:var(--fn)}.nu{color:var(--num)}.co{color:var(--com)}
+.vals{font:14px/1.55 "DejaVu Sans Mono","Liberation Mono",Consolas,monospace;padding:10px 12px;background:var(--tinte);border-radius:8px}
+.vals b{color:var(--to)}
+#res{display:block;padding:12px 14px;background:#fff;border:2px solid var(--t);border-radius:10px;min-height:4.5em;margin-top:10px}
+#res b{color:var(--to)}
+#res .mal{color:var(--rj);font-weight:bold}
+.nota{font-size:14px;color:#4a4a5a}
+[hidden]{display:none!important}
+@media (max-width:560px){.rej,.rej2{grid-template-columns:1fr}}
+@media (max-width:520px){body{padding:10px;font-size:15px}h1{font-size:18px}body>p:first-of-type{font-size:14px}button{padding:4px 9px;font-size:13px}button.pin{min-width:2.9em;padding:4px 5px}
+.fila>span{flex-basis:100%}#pines>span{flex-basis:auto}.ctl{grid-template-columns:1fr 50px}.ctl label{grid-column:1/2}.ctl input{grid-column:1/3;grid-row:2}.ctl output{grid-column:2;grid-row:1}
+pre{font-size:13px;padding:8px}.vals{display:none}.rej,.rej2{gap:8px;margin:8px 0}}
+</style>
+</head>
+<body>
+<h1>PWM: brillo y color con <code>analogWrite()</code></h1>
+<p>Un pin digital solo da 0 V o 5 V. Con PWM se enciende y se apaga cientos de veces por segundo: el valor (0–255) fija qué parte de cada ciclo está a 5 V.</p>
+
+<div class="modos" role="group" aria-label="Modo">
+  <button type="button" id="tP">Un LED</button>
+  <button type="button" id="tR">LED RGB (colores)</button>
+</div>
+
+<section id="sP">
+  <div class="fila" role="group" aria-label="Pin de salida" id="pines"><span>Pin:</span></div>
+  <div class="ctl"><label for="v">Valor de analogWrite()</label><input id="v" type="range" min="0" max="255" step="1" value="64"><output id="ov" for="v"></output></div>
+  <div class="rej">
+    <div><svg id="onda" viewBox="0 0 420 190" role="img" aria-labelledby="tOn"><title id="tOn">Señal del pin en el tiempo</title><g id="gOn"></g></svg></div>
+    <div><svg id="led1" viewBox="0 0 220 190" role="img" aria-labelledby="tL1"><title id="tL1">Brillo del LED</title><g id="gL1"></g></svg></div>
+  </div>
+  <div class="rej2"><pre id="cod1" aria-label="Programa"></pre><div class="vals" id="vals1" aria-live="polite"></div></div>
+</section>
+
+<section id="sR">
+  <div class="fila" role="group" aria-label="Colores de prueba" id="colores"><span>Prueba:</span></div>
+  <div class="ctl r"><label for="R">Rojo · pin 9</label><input id="R" type="range" min="0" max="255" value="255"><output id="oR" for="R"></output></div>
+  <div class="ctl g"><label for="G">Verde · pin 11</label><input id="G" type="range" min="0" max="255" value="120"><output id="oG" for="G"></output></div>
+  <div class="ctl b"><label for="B">Azul · pin 10</label><input id="B" type="range" min="0" max="255" value="0"><output id="oB" for="B"></output></div>
+  <div class="rej2">
+    <div><svg id="led3" viewBox="0 0 300 190" role="img" aria-labelledby="tL3"><title id="tL3">Color del LED RGB y aporte de cada canal</title><g id="gL3"></g></svg></div>
+    <pre id="cod3" aria-label="Programa"></pre>
+  </div>
+</section>
+
+<output id="res" role="status" aria-live="polite"></output>
+<p class="nota" id="nota"></p>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+function f(v,d){return v.toFixed(d).replace('.',',');}
+const sp=t=>'<span class="'+t[0]+'">'+t[1]+'</span>';
+const K=t=>sp(['kw',t]),F=t=>sp(['fn',t]),N=t=>sp(['nu',t]),C=t=>sp(['co',t]);
+const PWM=[3,5,6,9,10,11], PINES=[3,5,6,9,10,11,12,13];
+let modo='pwm', pin=9;
+const cands=[window.name,(location.hash||'').slice(1),new URLSearchParams(location.search).get('modo')];
+for(const c0 of cands){const c=(c0||'').replace(/^modo=/,''); if(c==='pwm'||c==='rgb'){modo=c;break;}}
+
+PINES.forEach(p=>{const b=document.createElement('button');b.type='button';b.className='pin'+(PWM.includes(p)?'':' sin');
+  b.textContent=(PWM.includes(p)?'~':'')+p;b.dataset.p=p;b.setAttribute('aria-label','pin '+p+(PWM.includes(p)?', con PWM':', sin PWM'));
+  b.onclick=()=>{pin=p;pinta();};$('pines').appendChild(b);});
+const COL=[['rojo',255,0,0],['ámbar',255,120,0],['verde',0,255,0],['blanco',255,255,255],['apagado',0,0,0]];
+COL.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c[0];
+  b.onclick=()=>{$('R').value=c[1];$('G').value=c[2];$('B').value=c[3];pinta();};$('colores').appendChild(b);});
+
+function glow(cx,cy,r,g,b,m,peq){
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+((peq?30:32)+(peq?24:38)*m).toFixed(1)+'" fill="rgba('+r+','+g+','+b+','+(0.4*m).toFixed(3)+')"/>'+
+         '<circle cx="'+cx+'" cy="'+cy+'" r="28" fill="'+(m===0?'#3a3a42':'rgb('+r+','+g+','+b+')')+'" stroke="#777" stroke-width="2"/>';
+}
+function pintaPWM(){
+  const v=+$('v').value; $('ov').value=v;
+  [...$('pines').querySelectorAll('button')].forEach(b=>b.setAttribute('aria-pressed',+b.dataset.p===pin));
+  const conPWM=PWM.includes(pin);
+  const T=(pin===5||pin===6)?1.02:2.04, fr=(pin===5||pin===6)?980:490;
+  // duty efectivo
+  let d; if(conPWM) d=v/255; else d=v<128?0:1;
+  // onda: 3 ciclos de 2,04 ms en el eje (para 980 Hz caben 6)
+  const nar=window.innerWidth<560, VW=nar?300:420, fs=nar?13:12;
+  $('onda').setAttribute('viewBox','0 0 '+VW+' 190'); $('led1').setAttribute('viewBox',nar?'0 0 220 130':'0 0 220 190');
+  const x0=nar?40:46,x1=VW-10,yH=40,yL=140, msEje=6.12, px=(x1-x0)/msEje;
+  let s='<line x1="'+x0+'" y1="'+yL+'" x2="'+x1+'" y2="'+yL+'" stroke="#bbb"/><line x1="'+x0+'" y1="'+yH+'" x2="'+x1+'" y2="'+yH+'" stroke="#eee"/>';
+  s+='<text x="'+(x0-6)+'" y="'+(yH+4)+'" font-size="'+fs+'" text-anchor="end" fill="#555">5 V</text><text x="'+(x0-6)+'" y="'+(yL+4)+'" font-size="'+fs+'" text-anchor="end" fill="#555">0 V</text>';
+  for(let m=0;m<=6;m+=1){const x=x0+m*px;s+='<line x1="'+x.toFixed(1)+'" y1="'+yL+'" x2="'+x.toFixed(1)+'" y2="'+(yL+5)+'" stroke="#999"/><text x="'+x.toFixed(1)+'" y="'+(yL+19)+'" font-size="'+fs+'" text-anchor="middle" fill="#666">'+m+'</text>';}
+  s+='<text x="'+x1+'" y="'+(yL+36)+'" font-size="'+fs+'" text-anchor="end" fill="#555">tiempo (ms)</text>';
+  let p='M'+x0+' '+(d>0?yH:yL);
+  if(d>0&&d<1){for(let a=0;a<msEje-1e-9;a+=T){const xa=x0+a*px, xon=x0+Math.min(msEje,a+T*d)*px, xe=x0+Math.min(msEje,a+T)*px;p+=' L'+xa.toFixed(1)+' '+yH+' L'+xon.toFixed(1)+' '+yH+' L'+xon.toFixed(1)+' '+yL+' L'+xe.toFixed(1)+' '+yL;}}
+  else p+=' L'+x1+' '+(d>0?yH:yL);
+  s+='<path d="'+p+'" fill="none" stroke="#b93649" stroke-width="3" stroke-linejoin="round"/>';
+  const yM=yL-(yL-yH)*d;
+  s+='<line x1="'+x0+'" y1="'+yM.toFixed(1)+'" x2="'+x1+'" y2="'+yM.toFixed(1)+'" stroke="#1b4d7e" stroke-width="2" stroke-dasharray="7 4"/>';
+  s+='<text x="'+(x0+4)+'" y="'+(d>0.85?yM+17:yM-6).toFixed(1)+'" font-size="'+(fs+1)+'" fill="#1b4d7e">media ≈ '+f(5*d,2)+' V</text>';
+  if(conPWM&&d>0&&d<1){const xa=x0, xb=x0+T*px;s+='<line x1="'+xa+'" y1="22" x2="'+xb.toFixed(1)+'" y2="22" stroke="#555" marker-start="url(#fl)" marker-end="url(#fl)"/><text x="'+((xa+xb)/2).toFixed(1)+'" y="16" font-size="'+fs+'" text-anchor="middle" fill="#555">un ciclo: '+f(T,2)+' ms</text>';}
+  s='<defs><marker id="fl" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,1 L8,4 L0,7Z" fill="#555"/></marker></defs>'+s;
+  $('gOn').innerHTML=s;
+  $('gL1').innerHTML='<rect width="220" height="190" fill="#1c1c22"/>'+glow(110,nar?58:80,255,45,35,d,nar)+'<text x="110" y="'+(nar?120:160)+'" font-size="13" text-anchor="middle" fill="#ddd">'+(d===0?'apagado':(d===1?'a tope':'lo que ve tu ojo'))+'</text>';
+  $('cod1').innerHTML=K('void')+' '+F('setup')+'() {\n  '+F('pinMode')+'('+N(pin)+', OUTPUT);\n}\n'+K('void')+' '+F('loop')+'() {\n  '+F('analogWrite')+'('+N(pin)+', '+N(v)+');\n}';
+  $('vals1').innerHTML=conPWM
+    ? 'pin <b>~'+pin+'</b> · '+fr+' Hz<br>a 5 V: <b>'+f(100*d,1)+' %</b><br>alto: '+f(T*d,2)+' de '+f(T,2)+' ms<br>media ≈ <b>'+f(5*d,2)+' V</b>'
+    : 'pin <b>'+pin+'</b> · sin PWM<br>'+v+(v<128?' &lt; 128 → <b>LOW</b>':' ≥ 128 → <b>HIGH</b>')+'<br>siempre a <b>'+(d?'5':'0')+' V</b>';
+  let t;
+  if(!conPWM) t='<span class="mal">El pin '+pin+' no tiene PWM (en la placa no lleva «~»).</span> <code>analogWrite()</code> no da error, pero solo hace dos cosas: por debajo de 128 apaga y desde 128 enciende del todo. Por eso los LED rojo (12) y azul (13) del shield solo se encienden o se apagan. Para graduar, un pin con «~»: 3, 5, 6, 9, 10 u 11.';
+  else if(v===0) t='Con 0 el pin no llega a ponerse a 5 V en ningún momento: LED apagado.';
+  else if(v===255) t='Con 255 el pin está a 5 V todo el tiempo: es lo mismo que <code>digitalWrite('+pin+', HIGH)</code>.';
+  else t='Con '+v+' el pin está a 5 V el '+f(100*d,1)+' % de cada ciclo ('+v+' / 255 = '+f(d,3)+'), es decir, '+f(T*d,2)+' de cada '+f(T,2)+' ms. El ojo no ve el parpadeo: percibe la media, ≈ '+f(5*d,2)+' V.'+(pin===5||pin===6?' Los pines 5 y 6 van al doble de velocidad (980 Hz) que el resto (490 Hz): el ciclo es más corto, pero el porcentaje es el mismo.':'');
+  $('res').innerHTML=t;
+  $('nota').textContent='Arduino UNO: 490 Hz en los pines 3, 9, 10 y 11; 980 Hz en el 5 y el 6. El ojo no ve el brillo proporcional: del 50 % al 100 % se nota menos de lo que parece.';
+}
+function pintaRGB(){
+  const r=+$('R').value,g=+$('G').value,b=+$('B').value; $('oR').value=r;$('oG').value=g;$('oB').value=b;
+  const m=Math.max(r,g,b)/255;
+  let s='<rect width="300" height="190" fill="#1c1c22"/>'+glow(92,82,r,g,b,m);
+  // barras de canal
+  [['R',r,'#e53935',9],['G',g,'#43a047',11],['B',b,'#1e88e5',10]].forEach((c,i)=>{const x=190+i*34,h=120*c[1]/255;
+    s+='<rect x="'+x+'" y="30" width="22" height="120" fill="#2b2b33" stroke="#555"/><rect x="'+x+'" y="'+(150-h).toFixed(1)+'" width="22" height="'+h.toFixed(1)+'" fill="'+c[2]+'"/>'+
+       '<text x="'+(x+11)+'" y="168" font-size="12" text-anchor="middle" fill="#ddd">'+c[0]+'</text><text x="'+(x+11)+'" y="184" font-size="11" text-anchor="middle" fill="#aaa">~'+c[3]+'</text>';});
+  s+='<text x="92" y="168" font-size="12" text-anchor="middle" fill="#ddd">'+(m===0?'apagado':'mezcla')+'</text>';
+  $('gL3').innerHTML=s;
+  $('cod3').innerHTML=[[9,r,'rojo'],[11,g,'verde'],[10,b,'azul']].map(c=>{const pl='analogWrite('+c[0]+', '+c[1]+');';return F('analogWrite')+'('+N(c[0])+', '+N(c[1])+');'+' '.repeat(23-pl.length)+C('// '+c[2]);}).join('\n');
+  let t;
+  if(r+g+b===0) t='Los tres canales a 0: LED apagado.';
+  else if(r===255&&g===255&&b===255) t='Los tres a tope: el ojo mezcla rojo, verde y azul y ve casi blanco.';
+  else if((r>0)+(g>0)+(b>0)===1) t='Solo un canal encendido: se ve su color puro, con el brillo que marque su PWM.';
+  else if(r>0&&g>0&&b===0) t='Rojo + verde dan amarillos y naranjas: cuanto menos verde, más anaranjado. El ámbar de un semáforo sale con el rojo a tope y el verde por debajo de la mitad.';
+  else if(r>0&&b>0&&g===0) t='Rojo + azul dan morados y rosas.';
+  else if(g>0&&b>0&&r===0) t='Verde + azul dan tonos turquesa.';
+  else t='Cada canal es un LED distinto con su propio PWM; dentro de la cápsula están tan juntos que el ojo los ve como un solo color.';
+  $('res').innerHTML=t;
+  $('nota').textContent='LED RGB del shield: rojo en el pin 9, verde en el 11 y azul en el 10, los tres con PWM. Los colores del LED real no salen idénticos a los de la pantalla: usa el simulador para orientarte y ajusta los valores en la placa.';
+}
+function pinta(){
+  $('tP').setAttribute('aria-pressed',modo==='pwm'); $('tR').setAttribute('aria-pressed',modo==='rgb');
+  $('sP').hidden=modo!=='pwm'; $('sR').hidden=modo!=='rgb';
+  modo==='pwm'?pintaPWM():pintaRGB();
+}
+$('tP').onclick=()=>{modo='pwm';pinta();}; $('tR').onclick=()=>{modo='rgb';pinta();};
+['v','R','G','B'].forEach(i=>$(i).addEventListener('input',pinta));
+window.addEventListener('resize',pinta);
+pinta();
+})();
+</script>
+</body>
+</html>

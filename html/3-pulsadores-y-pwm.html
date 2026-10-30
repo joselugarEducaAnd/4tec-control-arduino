@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE03">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>3. Pulsadores y PWM | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/trueorfalse/trueorfalse.js"></script><link rel="stylesheet" href="../idevices/trueorfalse/trueorfalse.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE03" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li class="active"> <a href="../html/3-pulsadores-y-pwm.html" class="active no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="../html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="../html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="../html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="../html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="../html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE03" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">3. Pulsadores y PWM</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE03" class="page-content">
+<article id="20261024TEC4SDA05BLK003" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV003" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV003&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Leer un pulsador, decidir con <code>if</code> y <code>else</code> qué hace una salida, y graduar el brillo de una luz con <code>analogWrite</code>.</div><h2>Leer un pulsador</h2><p>Para que el Arduino reaccione a algo, tiene que <b>leer</b> una entrada. Un pulsador se lee con <code>digitalRead(pin)</code>, que devuelve HIGH (le llegan 5 V) o LOW (le llegan 0 V).</p><p>Los pulsadores del shield son <b>SW1</b> (pin 2) y <b>SW2</b> (pin 3). Cada uno tiene una resistencia que lleva el pin a 5 V mientras está suelto, y al pulsarlo el pin queda unido a GND: <b>suelto da HIGH y pulsado da LOW</b>. SW1 está enfrente del LED azul (13) y SW2, enfrente del LED rojo (12).</p><p class="cod-tit">Ejemplo: mientras SW1 esté pulsado, se enciende el LED azul, el que tiene enfrente</p><pre class="codigo"><code>// Mientras SW1 esté pulsado, se enciende el LED azul (el de enfrente)
+const int SW1 = 2;
+const int LED_AZUL = 13;
+
+void setup() {
+  pinMode(SW1, INPUT);            // el pulsador es una entrada
+  pinMode(LED_AZUL, OUTPUT);
+}
+
+void loop() {
+  int pulsado = digitalRead(SW1); // LOW si está pulsado, HIGH si no
+  if (pulsado == LOW) {
+    digitalWrite(LED_AZUL, HIGH);
+  } else {
+    digitalWrite(LED_AZUL, LOW);
+  }
+}</code></pre><h2>Decidir: if y else</h2><p><code>if</code> («si») comprueba una condición. Si se cumple, hace lo que hay entre sus llaves; si no, hace lo que hay en las llaves de <code>else</code> («si no»). Es la regla «si… entonces…» de la unidad de electrónica digital, escrita en C.</p><pre class="codigo"><code>if (pulsado == LOW) {      // si el pulsador está pulsado…
+  digitalWrite(LED_AZUL, HIGH);   // …enciende
+} else {                   // si no…
+  digitalWrite(LED_AZUL, LOW);    // …apaga
+}</code></pre><div class="idea"><b>Ojo.</b> Para <b>comparar</b> se escriben dos iguales: <code>==</code>. Un solo <code>=</code> sirve para <b>guardar</b> un valor, como en <code>int pulsado = …</code>. Confundirlos es un error típico: el programa compila, pero no hace lo que quieres.</div><div class="ahora"><p><b>Ahora tú.</b> Con el programa del ejemplo, ¿qué pasa si mantienes pulsado SW1 y, a la vez, pulsas SW2?</p><details><summary>Ver solución</summary><p>Nada distinto: el programa solo lee el pin 2 (SW1). SW2 está en el pin 3 y el programa no lo mira.</p></details></div><h2>Añade los pulsadores a tu Shield virtual</h2><p>Abre tu <b>Shield virtual</b> (el original, no una copia) y añádele los dos pulsadores con su resistencia, como en el shield. Así, todas las copias que hagas desde ahora ya los tendrán.</p><figure><a href="../content/resources/tc_sv_pulsadores_vista.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_vista.svg" alt="Captura de Tinkercad con el Shield virtual: los dos pulsadores con sus resistencias, los cables a los pines 2 y 3 y el cable rojo desde el pin 5V hasta el carril + de arriba."/></a><figcaption>Tu Shield virtual con los pulsadores añadidos. <a href="../content/resources/tc_sv_pulsadores_vista.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><ol class="pasos"><li>Coloca un <b>Pulsador</b> saltando el canal del centro, con sus patillas en las columnas 6 y 8 (filas e y f). Al pulsarlo, se unen las dos columnas. Coloca otro igual en las columnas 11 y 13.</li><li>Pon una <b>Resistencia</b> de <b>10 kΩ</b> en vertical, de i8 al carril + de arriba, y otra de i13 al carril +. Son las que llevan el pin a 5 V mientras el pulsador está suelto.</li><li>Une con cables: a8 con el pin 2, a13 con el pin 3, y a6 y a11 con el carril − de abajo.</li><li>El carril + de arriba todavía no tiene tensión: lleva un cable desde el pin <b>5V</b> del Arduino hasta él, por el lado derecho de la placa de pruebas.</li></ol><figure><a href="../content/resources/tc_sv_pulsadores_detalle.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_detalle.svg" alt="Detalle en Tinkercad de los dos pulsadores con sus resistencias de 10 kΩ y los cables a los pines 2 y 3 y a GND."/></a><figcaption>Los pulsadores de cerca: cada número indica dónde va cada cosa. <a href="../content/resources/tc_sv_pulsadores_detalle.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>Para probarlo, duplica el Shield virtual y llama a la copia <b>Reto R2 - Semáforo</b>. Pega en ella el ejemplo de SW1 y el LED azul e inicia la simulación. En esa misma copia harás después el reto.</p><figure class="fig-media"><a href="../content/resources/tc_sv_pulsadores_simula.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/tc_sv_pulsadores_simula.svg" alt="Simulación en Tinkercad: con el ratón sobre SW1 pulsado, el LED azul está encendido."/></a><figcaption>Mientras mantienes el clic, el pulsador está pulsado. <a href="../content/resources/tc_sv_pulsadores_simula.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><h2>Valores intermedios: PWM</h2><p>Un pin digital solo da 0 V o 5 V. Pero si se enciende y se apaga muy deprisa, cientos de veces por segundo, un LED parece lucir a medias. Esto se llama <b>PWM</b> y lo hacen los pines marcados con <b>~</b>. La orden es <code>analogWrite(pin, valor)</code>, con un valor de 0 (siempre apagado) a 255 (siempre encendido).</p><p>Prueba en el simulador qué pasa al cambiar el valor y el pin:</p><iframe src="../content/resources/widgets/pwm.html" name="pwm" title="PWM con analogWrite(): pines, ciclo de trabajo y tensión media" width="100%" height="1260" loading="lazy" style="border:1px solid #c5dccd;border-radius:12px"></iframe><table><thead><tr><th>analogWrite</th><th>Tiempo encendido</th><th>Lo que ves</th></tr></thead><tbody><tr><td>0</td><td>0 %</td><td>apagado</td></tr><tr><td>64</td><td>25 %</td><td>luz tenue</td></tr><tr><td>128</td><td>50 %</td><td>a media luz</td></tr><tr><td>255</td><td>100 %</td><td>brillo máximo</td></tr></tbody></table><div class="idea"><b>Idea clave.</b> Los LED rojo (12) y azul (13) del shield <b>no</b> están en pines con ~: con ellos <code>analogWrite</code> solo enciende o apaga. Para graduar la luz, usa el LED RGB.</div><h3>El LED RGB</h3><p>El LED RGB del shield son tres luces en una: <b>rojo en el 9</b>, <b>verde en el 11</b> y <b>azul en el 10</b>. Mezclándolas salen otros colores: rojo y verde dan amarillo o ámbar; rojo y azul, morado; las tres a tope, blanco.</p><iframe src="../content/resources/widgets/pwm.html" name="rgb" title="Mezcla de colores con el LED RGB y analogWrite()" width="100%" height="1260" loading="lazy" style="border:1px solid #c5dccd;border-radius:12px"></iframe><p class="cod-tit">Ejemplo: tres colores con el LED RGB</p><pre class="codigo"><code>// Tres colores con el LED RGB del shield
+const int ROJO = 9;
+const int VERDE = 11;
+const int AZUL = 10;
+
+void setup() {
+  pinMode(ROJO, OUTPUT);
+  pinMode(VERDE, OUTPUT);
+  pinMode(AZUL, OUTPUT);
+}
+
+void loop() {
+  analogWrite(ROJO, 255);  // rojo a tope
+  analogWrite(VERDE, 0);
+  analogWrite(AZUL, 0);
+  delay(1000);
+  analogWrite(ROJO, 64);   // rojo a la cuarta parte: más tenue
+  delay(1000);
+  analogWrite(ROJO, 255);  // rojo + azul = morado
+  analogWrite(AZUL, 255);
+  delay(1000);
+}</code></pre><div class="ahora"><p><b>Ahora tú.</b> ¿Qué valores pondrías en los tres <code>analogWrite</code> para conseguir un verde a media luz?</p><details><summary>Ver solución</summary><p>Rojo 0, verde unos 128 y azul 0: <code>analogWrite(ROJO, 0); analogWrite(VERDE, 128); analogWrite(AZUL, 0);</code></p></details></div><h2>El reto de hoy</h2><div class="reto"><p class="reto-tit">Reto R2 · Semáforo con pulsador para peatones</p><p>El LED RGB es el semáforo de los coches y el LED azul (13), el de los peatones. Mientras nadie pulse, los coches tienen verde. Cuando alguien pulsa SW1: ámbar durante 2 segundos, después rojo para los coches y el LED azul encendido durante 5 segundos, y vuelta al verde. Pruébalo primero en Tinkercad, en tu copia <b>Reto R2 - Semáforo</b>, y después en la placa.</p><p><b>Está conseguido cuando…</b> en la placa, el semáforo está en verde y solo cambia cuando se pulsa SW1, con la secuencia y los tiempos pedidos.</p><details><summary>Si te atascas: el programa con huecos</summary><p>Rellena cada <b>____</b>: cada hueco es una palabra, un número o un signo que ya has visto en esta página.</p><pre class="codigo"><code>// Reto R2: semáforo con pulsador para peatones
+const int ROJO = 9;
+const int VERDE = 11;
+const int AZUL = 10;
+const int SW1 = 2;
+const int PEATONES = 13;   // LED azul: los peatones pueden pasar
+
+void setup() {
+  pinMode(ROJO, OUTPUT);
+  pinMode(VERDE, OUTPUT);
+  pinMode(AZUL, OUTPUT);
+  pinMode(SW1, ____);
+  pinMode(PEATONES, OUTPUT);
+}
+
+void loop() {
+  // Coches en verde mientras nadie pulse
+  analogWrite(ROJO, 0);
+  analogWrite(VERDE, 255);
+  analogWrite(AZUL, 0);
+  digitalWrite(PEATONES, LOW);
+  if (digitalRead(SW1) == ____) {   // alguien pide paso
+    analogWrite(ROJO, 255);         // ámbar: rojo + un poco de verde
+    analogWrite(VERDE, ____);
+    delay(2000);
+    analogWrite(VERDE, ____);          // rojo para los coches
+    digitalWrite(PEATONES, ____);   // los peatones pasan
+    delay(____);
+  }
+}</code></pre></details><p><b>Cuando funcione en la placa:</b> enséñalo funcionando para que se anote en la lista de los retos. Después, en la tarea de Moodle <b>Retos Arduino (código)</b>, pulsa <b>Editar entrega</b> (la primera vez, <b>Agregar entrega</b>), escribe <b>R2</b> y pega debajo tu programa. Pulsa <b>Guardar cambios</b>. Cada reto nuevo va debajo del anterior.</p></div><div class="ampliacion"><b>Para ir más allá.</b> Haz que el zumbador del pin 5 pite mientras los peatones pueden pasar: <code>tone(5, 1000);</code> lo hace sonar y <code>noTone(5);</code> lo calla.</div><div class="falla"><b>Si algo falla</b><table><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>El LED no se enciende nunca</td><td>¿Has puesto <code>pinMode</code> en <code>setup()</code>? ¿Usas el pin correcto?</td></tr><tr><td>Los colores salen cambiados</td><td>Comprueba que el verde es el 11 y el azul el 10.</td></tr><tr><td>El semáforo cambia solo, sin pulsar</td><td>¿Comparas con <code>LOW</code>? Suelto, el pulsador da HIGH. En Tinkercad, ¿llega la resistencia de 10 kΩ al carril + y tiene ese carril su cable de 5V? Sin ellos, el pin «flota».</td></tr><tr><td>Un pulsador no responde o lee siempre lo mismo</td><td>Mira que el shield no toque la parte metálica del conector USB de la placa: si la toca, hace cortocircuito. Sepáralo un poco o pon cinta aislante encima del USB.</td></tr></tbody></table></div>
+</div>
+</div>
+</article><article id="block-1792837521506-cao6jwfl5" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Compruébalo</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1792837521519-9zrj8z7x6" class="idevice_node trueorfalse" data-idevice-path="../idevices/trueorfalse/" data-idevice-type="trueorfalse" data-idevice-component-type="json" data-idevice-json-data="{&quot;id&quot;:&quot;idevice-1792837521519-9zrj8z7x6&quot;,&quot;typeGame&quot;:&quot;TrueOrFalse&quot;,&quot;eXeGameInstructions&quot;:&quot;&lt;p&gt;Decide si cada frase es verdadera o falsa.&lt;/p&gt;&quot;,&quot;eXeIdeviceTextAfter&quot;:&quot;&quot;,&quot;msgs&quot;:{&quot;msgStartGame&quot;:&quot;Pulsa aquí para empezar&quot;,&quot;msgTime&quot;:&quot;Tiempo por pregunta&quot;,&quot;msgNoImage&quot;:&quot;Pregunta sin imágenes&quot;,&quot;msgScoreScorm&quot;:&quot;La puntuación no se puede guardar porque esta página no forma parte  de un paquete SCORM.&quot;,&quot;msgEndGameScore&quot;:&quot;Comience la partida antes de guardar la puntuación.&quot;,&quot;msgOnlySaveScore&quot;:&quot;¡Solo puede guardar la puntuación una vez!&quot;,&quot;msgOnlySave&quot;:&quot;Solo puede guardar una vez&quot;,&quot;msgYouScore&quot;:&quot;Su puntuación&quot;,&quot;msgAuthor&quot;:&quot;Autoría&quot;,&quot;msgOnlySaveAuto&quot;:&quot;Su puntuación se guardará después de cada pregunta. Solo puede jugar una vez.&quot;,&quot;msgSaveAuto&quot;:&quot;Su puntuación se guardará automáticamente después de cada pregunta.&quot;,&quot;msgSeveralScore&quot;:&quot;Puede guardar la puntuación tantas veces como quiera&quot;,&quot;msgYouLastScore&quot;:&quot;La última puntuación guardada es&quot;,&quot;msgActityComply&quot;:&quot;Ya ha realizado esta actividad.&quot;,&quot;msgPlaySeveralTimes&quot;:&quot;Puede realizar esta actividad cuantas veces quiera&quot;,&quot;msgUncompletedActivity&quot;:&quot;Actividad no completada&quot;,&quot;msgSuccessfulActivity&quot;:&quot;Actividad superada. Puntuación: %s&quot;,&quot;msgUnsuccessfulActivity&quot;:&quot;Actividad no superada. Puntuación: %s&quot;,&quot;msgTypeGame&quot;:&quot;Verdadero o falso&quot;,&quot;msgFeedback&quot;:&quot;Retroalimentación&quot;,&quot;msgSuggestion&quot;:&quot;Sugerencia&quot;,&quot;msgSolution&quot;:&quot;Solución&quot;,&quot;msgQuestion&quot;:&quot;Pregunta&quot;,&quot;msgTrue&quot;:&quot;Verdadero&quot;,&quot;msgFalse&quot;:&quot;Falso&quot;,&quot;msgOk&quot;:&quot;Correcto&quot;,&quot;msgKO&quot;:&quot;Incorrecto&quot;,&quot;msgShow&quot;:&quot;Mostrar&quot;,&quot;msgHide&quot;:&quot;Ocultar&quot;,&quot;msgCheck&quot;:&quot;Comprobar&quot;,&quot;msgReboot&quot;:&quot;¡Prueba otra vez!&quot;,&quot;msgScore&quot;:&quot;Puntuación&quot;,&quot;msgWeight&quot;:&quot;Peso&quot;,&quot;msgNext&quot;:&quot;Siguiente&quot;,&quot;msgPrevious&quot;:&quot;Anterior&quot;},&quot;questionsRandom&quot;:false,&quot;percentageQuestions&quot;:100,&quot;isTest&quot;:false,&quot;time&quot;:0,&quot;questionsGame&quot;:[{&quot;question&quot;:&quot;&lt;p&gt;Los pulsadores del shield dan HIGH cuando están pulsados.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;No. Pulsados dan LOW. Su resistencia lleva el pin a 5 V mientras están sueltos y, al pulsar, el pin queda unido a GND.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Qué lee el pin 2 mientras mantienes SW1 apretado?&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;analogWrite da valores intermedios en cualquier pin digital.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Solo en los pines con ~. En el 12 y el 13 solo enciende o apaga.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Mira qué pines llevan el símbolo ~ en la placa.&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;analogWrite(9, 128) enciende el rojo del LED RGB a media luz.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. El rojo está en el 9 y 128 es la mitad de 255.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿En qué pin está el rojo del RGB?&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;Para comparar dos valores dentro de un if se escribe un solo =.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Para comparar se escribe ==. Un solo = guarda un valor.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Piensa en int pulsado = digitalRead(SW1);&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;El rojo y el verde del LED RGB, encendidos a la vez, dan amarillo.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. Con menos verde sale ámbar, como en el semáforo.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Recuerda el mezclador de colores del simulador.&lt;/p&gt;&quot;,&quot;solution&quot;:1}],&quot;isScorm&quot;:0,&quot;textButtonScorm&quot;:&quot;Guardar la puntuación&quot;,&quot;repeatActivity&quot;:true,&quot;weighted&quot;:100,&quot;evaluation&quot;:false,&quot;evaluationID&quot;:&quot;&quot;,&quot;showSlider&quot;:false,&quot;ideviceId&quot;:&quot;idevice-1785313017315-5i36ev3um&quot;}" data-idevice-template="trueorfalse.html">
+<div class="exe-trueorfalse-container">
+  
+    <div class="game-evaluation-ids js-hidden" data-id="idevice-1792837521519-9zrj8z7x6" data-evaluationb="false" data-evaluationid=""></div>
+        <div class="TOFP-instructions"><p>Decide si cada frase es verdadera o falsa.</p></div>
+        <div class="TOFP-MainContainer" data-instance="idevice-1792837521519-9zrj8z7x6" id="tofPMainContainer-idevice-1792837521519-9zrj8z7x6">
+            <div class="TOFP-GameContainer" id="tofPGameContainer-idevice-1792837521519-9zrj8z7x6">
+                <div class="TOFP-GameScoreBoard TOFP-EHidden">
+                    <div class="TOFP-TimeNumber">
+                        <strong><span class="sr-av">Tiempo por pregunta:</span></strong>
+                        <p id="tofPPTime-idevice-1792837521519-9zrj8z7x6" class="TOFP-PTime">00:00:</p>
+                    </div>
+                </div>
+                <div class="TOFP-MessgeDiv" id="tofPMessageDiv-idevice-1792837521519-9zrj8z7x6">
+                    <div class="TOFP-Message" id="tofPMessage-idevice-1792837521519-9zrj8z7x6"></div>
+                </div>
+                <div class="TOFP-StartGameDiv TOFP-EHidden" id="tofPStartGameDiv-idevice-1792837521519-9zrj8z7x6">
+                    <button  id="tofPStartGame-idevice-1792837521519-9zrj8z7x6" type="button" class="btn btn-primary">Pulsa aquí para empezar</button>
+                </div>
+                <div class="TOFP-Multimedia " id="tofPMultimedia-idevice-1792837521519-9zrj8z7x6">
+                </div>
+                <div class="TOFP-CheckTestDiv TOFP-EHidden" id="tofPCheckTestDiv-idevice-1792837521519-9zrj8z7x6">
+                    <button id="tofPCheckTest-idevice-1792837521519-9zrj8z7x6" type="button" class="btn btn-primary">Comprobar</button>
+                    <button id="tofRebootTest-idevice-1792837521519-9zrj8z7x6" type="button" class="btn btn-primary TOFP-EHidden">¡Prueba otra vez!</button>
+                </div>
+        </div> 
+        <div class="Games-BottonContainer">
+            <div class="Games-GetScore">
+                <input id="tofPSendScore-idevice-1792837521519-9zrj8z7x6" type="button" value="Guardar la puntuación" class="feedbackbutton Games-SendScore" style="display:none"/> <span class="Games-RepeatActivity"></span>
+            </div>
+        </div>
+        <div class="TOFP-After"></div>
+        <div class="questionsMedia" style="display:none"></div>
+</div>
+
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/2-arduino-tu-primer-programa.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/4-sensores-analogicos-la-ldr.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

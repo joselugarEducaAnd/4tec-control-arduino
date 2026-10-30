@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Umbral de un sensor de luz</title>
+<style>
+/* Widget W3 · 4.º TEC · SdA 05 (y reutilizable en 1.º TECI 10). Autocontenido: sin red ni almacenamiento.
+   Modo por el name del iframe (o #modo, o ?modo=): farola (esquema y umbral) · anochecer (parpadeo e histéresis) · completo (por defecto si se abre suelto)
+   Esquema con la convención del libro de electrónica analógica: trazo #263c4a, flechas de luz que
+   entran en la LDR y flechas del LED en rojo #b93649. Salida en D12: el LED rojo del shield, con su resistencia (como R3/R6). */
+:root{--t:#9c4419;--to:#6e2f10;--tinte:#f8ede6;--tx:#25243f;--az:#1b4d7e;--rj:#b3261e;--vd:#1e7a3c;
+--ln:#263c4a;--mas:#b93649;--menos:#176c9a;--luz:#16725e;--kw:#00838a;--fn:#c0560b;--num:#5b3fa0;--com:#6f7a80}
+*{box-sizing:border-box}
+body{margin:0;padding:18px;font:16px/1.45 Verdana,"DejaVu Sans",Arial,sans-serif;color:var(--tx);background:#fbf8f6}
+h1{font-size:20px;color:var(--to);margin:0 0 6px}
+h2{font-size:17px;color:var(--to);margin:18px 0 4px}
+p{margin:4px 0 10px}
+.modos,.fila{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.fila>span{font-weight:bold;margin-right:2px}
+button{font:inherit;padding:6px 12px;border:2px solid var(--t);background:#fff;color:var(--to);border-radius:20px;cursor:pointer}
+button:hover{background:var(--tinte)}
+button[aria-pressed="true"]{background:var(--t);color:#fff}
+button:disabled{opacity:.5;cursor:default}
+button:focus-visible,input:focus-visible{outline:3px solid var(--az);outline-offset:2px}
+.ctl{display:grid;grid-template-columns:minmax(170px,max-content) 1fr 110px;gap:6px 12px;align-items:center;margin:6px 0}
+.ctl label{font-weight:bold}
+.ctl input{width:100%;accent-color:var(--t)}
+.ctl output{font-variant-numeric:tabular-nums;text-align:right}
+.rej{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px;margin:10px 0;align-items:start}
+svg{width:100%;height:auto;display:block;background:#fff;border:1px solid #e3cfc2;border-radius:10px}
+svg text{font-family:Verdana,"DejaVu Sans",Arial,sans-serif}
+pre{margin:0;padding:10px 12px;background:#fff;border:1px solid #e3cfc2;border-left:5px solid var(--kw);border-radius:8px;
+font:14px/1.55 "DejaVu Sans Mono","Liberation Mono",Consolas,monospace;white-space:pre;overflow-x:auto}
+.kw{color:var(--kw);font-weight:bold}.fn{color:var(--fn)}.nu{color:var(--num)}.co{color:var(--com)}
+.si{background:#e5f3ea;border-radius:3px}
+#res,#res2{display:block;padding:12px 14px;background:#fff;border:2px solid var(--t);border-radius:10px;min-height:3em;margin-top:10px}
+#res b,#res2 b{color:var(--to)}
+.mal{color:var(--rj);font-weight:bold}
+.bien{color:var(--vd);font-weight:bold}
+.nota{font-size:14px;color:#4a4a5a}
+.m-farola .soloA,.m-anochecer .soloF{display:none!important}.m-anochecer .rej{display:block}
+@media (max-width:640px){.rej{grid-template-columns:1fr}}
+@media (max-width:520px){body{padding:10px;font-size:15px}h1{font-size:18px}h2{font-size:16px}body>p{font-size:14px}button{padding:4px 9px;font-size:13px}
+.ctl{grid-template-columns:1fr 92px}.ctl label{grid-column:1/2}.ctl input{grid-column:1/3;grid-row:2}.ctl output{grid-column:2;grid-row:1}
+pre{font-size:13px;padding:8px}.rej{gap:8px;margin:8px 0}}
+</style>
+</head>
+<body>
+<h1>Umbral: la LDR decide cuándo encender</h1>
+<p>Arduino lee en A1 la tensión del divisor de la LDR y la compara con un <b>umbral</b>. Sin Arduino, el LED del divisor se encendía poco a poco; aquí el programa decide encendido o apagado, y el umbral se cambia sin tocar componentes.</p>
+
+<div class="fila" role="group" aria-label="Montaje del divisor">
+  <span>Divisor:</span>
+  <button type="button" id="dA">LDR arriba (shield)</button>
+  <button type="button" id="dB">LDR abajo</button>
+</div>
+<div class="ctl soloF"><label for="luz">Luz sobre la LDR</label><input id="luz" type="range" min="0" max="100" step="1" value="70"><output id="oLuz" for="luz"></output></div>
+<div class="ctl"><label for="umb">Umbral</label><input id="umb" type="range" min="0" max="1023" step="1" value="400"><output id="oUmb" for="umb"></output></div>
+
+<div class="rej">
+  <svg class="soloF" id="esq" viewBox="0 0 400 330" role="img" aria-labelledby="tEsq"><title id="tEsq">Divisor con LDR hacia A1, Arduino, y salida D12 con el LED rojo del shield y su resistencia</title><g id="gEsq"></g></svg>
+  <div><pre id="cod" aria-label="Programa"></pre><output class="soloF" id="res" role="status" aria-live="polite"></output></div>
+</div>
+
+<h2 class="soloA">Anochece con nubes</h2>
+<p class="soloA">Media hora de lecturas, una cada 15 s. ¿Cuántas veces cambia la farola?</p>
+<div class="ctl soloA"><label for="mar">Histéresis</label><input id="mar" type="range" min="0" max="100" step="10" value="0"><output id="oMar" for="mar"></output></div>
+<div class="fila soloA"><button type="button" id="play">▶ Simular el anochecer</button></div>
+<svg class="soloA" id="graf" viewBox="0 0 640 230" role="img" aria-labelledby="tGraf"><title id="tGraf">Lecturas durante el anochecer, umbral y estado de la farola</title><g id="gGraf"></g></svg>
+<output class="soloA" id="res2" role="status" aria-live="polite"></output>
+<p class="nota">Modelo: 10 kΩ fija, LDR de unos 200 kΩ (noche) a 500 Ω (sol), 5 V ideales; el LED rojo del shield lleva su propia resistencia.<span class="soloA"> El anochecer es simulado y siempre el mismo, para que todo el grupo vea el mismo caso.</span></p>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+function f(v,d){return v.toFixed(d).replace('.',',');}
+const sp=(c,t)=>'<span class="'+c+'">'+t+'</span>';
+const K=t=>sp('kw',t),F=t=>sp('fn',t),N=t=>sp('nu',t),C=t=>sp('co',t);
+const RF=10;                       // kΩ
+const rLDR=l=>Math.pow(10,Math.log10(200)-(Math.log10(200)-Math.log10(0.5))*l/100); // kΩ
+let arriba=true, anim=null, paso=-1;
+let modo='completo';   // sin name ni #modo (abierto suelto): todo; en el libro manda el name
+const cands=[window.name,(location.hash||'').slice(1),new URLSearchParams(location.search).get('modo')];
+for(const c0 of cands){const c=(c0||'').replace(/^modo=/,''); if(c==='farola'||c==='anochecer'||c==='completo'){modo=c;break;}}
+document.body.className='m-'+modo;
+
+function tension(l){const R=rLDR(l);return arriba?5*RF/(RF+R):5*R/(RF+R);}
+function lectura(V){return Math.min(1023,Math.floor(V*1024/5));}
+/* condición de encendido: con LDR arriba, oscuro = lectura baja → enciende si lectura < umbral */
+function enciende(lec,u){return arriba?lec<u:lec>u;}
+const op=()=>arriba?'<':'>';
+
+/* ---------- anochecer simulado (determinista) ---------- */
+const NS=120;
+function serie(){
+  const out=[];
+  for(let i=0;i<NS;i++){
+    const l=55-30*i/(NS-1);                              // la luz cae de 55 a 25
+    const nube=-5*Math.exp(-Math.pow((i-38)/7,2))-4*Math.exp(-Math.pow((i-70)/6,2));
+    let lec=lectura(tension(Math.max(0,l+nube)));
+    const ruido=Math.round(30*Math.sin(i*1.9)+20*Math.sin(i*4.7+1)+12*Math.sin(i*11.3+2));
+    out.push(Math.max(0,Math.min(1023,lec+ruido)));
+  }
+  return out;
+}
+function simula(s,u,m){
+  let on=false; const est=[]; let cambios=0;
+  for(let i=0;i<s.length;i++){
+    let nuevo=on;
+    if(m===0) nuevo=enciende(s[i],u);
+    else{ if(arriba){ if(s[i]<u-m) nuevo=true; else if(s[i]>u+m) nuevo=false; }
+          else{ if(s[i]>u+m) nuevo=true; else if(s[i]<u-m) nuevo=false; } }
+    if(i>0&&nuevo!==on) cambios++;
+    on=nuevo; est.push(on);
+  }
+  return {est,cambios};
+}
+
+/* ---------- esquema ---------- */
+function resV(x,y1,y2,et,lado){ // resistencia vertical
+  return '<path d="M'+x+' '+y1+' V'+(y1+10)+' M'+x+' '+(y2-10)+' V'+y2+'" stroke="#263c4a" stroke-width="3"/><rect x="'+(x-9)+'" y="'+(y1+10)+'" width="18" height="'+(y2-y1-20)+'" fill="#fff" stroke="#263c4a" stroke-width="2"/>'+
+         '<text x="'+(lado<0?x-15:x+15)+'" y="'+((y1+y2)/2+5)+'" font-size="15" text-anchor="'+(lado<0?'end':'start')+'" fill="#263c4a">'+et+'</text>';
+}
+function ldrV(x,y1,y2,lado){
+  const yc=(y1+y2)/2;
+  let s=resV(x,y1,y2,'',lado)+'<circle cx="'+x+'" cy="'+yc+'" r="24" fill="none" stroke="#263c4a" stroke-width="2"/>';
+  [-9,9].forEach(o=>{
+    const X1=lado<0?x+48:x-48, X2=lado<0?x+22:x-22, Y1=yc-20+o, Y2=yc-4+o, ang=Math.atan2(Y2-Y1,X2-X1), h=7;
+    s+='<line x1="'+X1+'" y1="'+Y1+'" x2="'+X2+'" y2="'+Y2+'" stroke="#16725e" stroke-width="2.5"/>';
+    s+='<path d="M'+(X2-h*Math.cos(ang-0.5)).toFixed(1)+' '+(Y2-h*Math.sin(ang-0.5)).toFixed(1)+' L'+X2+' '+Y2+' L'+(X2-h*Math.cos(ang+0.5)).toFixed(1)+' '+(Y2-h*Math.sin(ang+0.5)).toFixed(1)+'" fill="none" stroke="#16725e" stroke-width="2.5"/>';
+  });
+  return s;
+}
+function esquema(l,u){
+  const V=tension(l), lec=lectura(V), on=enciende(lec,u), R=rLDR(l);
+  const L='#263c4a', T=(x,y,tx,o)=>'<text x="'+x+'" y="'+y+'" font-size="'+((o&&o.fs)||15)+'"'+(o&&o.a?' text-anchor="'+o.a+'"':'')+' fill="'+((o&&o.c)||L)+'"'+(o&&o.b?' font-weight="bold"':'')+'>'+tx+'</text>';
+  let s='<rect width="400" height="330" fill="#fff"/>';
+  s+='<path d="M50 34 H150 M50 305 H350" stroke="'+L+'" stroke-width="3" fill="none"/>';
+  s+=T(8,39,'5 V',{c:'#b93649'})+T(8,310,'0 V',{c:'#176c9a'});
+  const x=62, rt=(R>=10?f(R,0):f(R,1))+' kΩ';
+  s+='<path d="M'+x+' 34 V50 M'+x+' 120 V170 M'+x+' 240 V305" stroke="'+L+'" stroke-width="3" fill="none"/>';
+  if(arriba){ s+=ldrV(x,50,120,1)+T(94,83,'LDR')+T(94,102,rt,{fs:14,c:'#16725e'}); s+=resV(x,170,240,'10 kΩ',1); }
+  else{ s+=resV(x,50,120,'10 kΩ',1); s+=ldrV(x,170,240,1)+T(94,203,'LDR')+T(94,222,rt,{fs:14,c:'#16725e'}); }
+  s+='<circle cx="'+x+'" cy="145" r="5" fill="'+L+'"/><path d="M'+x+' 145 H152" stroke="'+L+'" stroke-width="3" fill="none"/>';
+  s+=T(46,150,'S',{a:'end'})+T(107,139,f(V,2)+' V',{fs:14,a:'middle',c:'#5b3fa0'});
+  s+='<g transform="translate(20,0)">';
+  s+='<rect x="132" y="100" width="108" height="122" rx="8" fill="#eef4f6" stroke="'+L+'" stroke-width="2"/>';
+  s+=T(186,120,'Arduino',{a:'middle',b:1})+T(138,150,'A1',{fs:14})+T(234,195,'D12',{fs:14,a:'end'});
+  s+=T(186,172,lec+' '+op()+' '+u+'?',{fs:14,a:'middle',c:'#5b3fa0'});
+  s+=T(186,214,on?'sí → HIGH':'no → LOW',{fs:14,a:'middle',c:on?'#1e7a3c':'#555',b:1});
+  s+='<path d="M240 190 H330 V200" stroke="'+(on?'#b93649':L)+'" stroke-width="3" fill="none"/>';
+  s+=resV(330,200,250,'R',-1);
+  s+='<path d="M330 250 V257" stroke="'+L+'" stroke-width="3" fill="none"/>';
+  if(on) s+='<circle cx="330" cy="270" r="26" fill="#ff5a3c" opacity=".28"/>';
+  s+='<path d="M316 257 H344 L330 283 Z" fill="'+(on?'#ff8a70':'#fff')+'" stroke="'+L+'" stroke-width="3"/><path d="M314 283 H346 M330 283 V305" stroke="'+L+'" stroke-width="3" fill="none"/>';
+  [0,11].forEach(o=>{s+='<path d="M348 '+(264+o)+' L364 '+(250+o)+' M357 '+(249+o)+' L364 '+(250+o)+' L363 '+(257+o)+'" fill="none" stroke="'+(on?'#b93649':'#d6b3ba')+'" stroke-width="2.5"/>';});
+  s+=T(308,275,'LED',{fs:14,a:'end'});
+  s+='</g>';
+  s+=T(8,327,on?'D12 a 5 V: pasa corriente y el LED rojo luce':'D12 a 0 V: sin corriente, LED apagado',{fs:14,c:'#555'});
+  $('gEsq').innerHTML=s;
+  return {V,lec,on,R};
+}
+/* ---------- gráfica del anochecer ---------- */
+function grafica(u,m,n){
+  const nar=window.innerWidth<560, VW=nar?360:640, H=230;
+  $('graf').setAttribute('viewBox','0 0 '+VW+' '+H);
+  const x0=nar?40:50, x1=VW-12, y0=20, y1=170, fs=nar?13:12;
+  const X=i=>x0+(x1-x0)*i/(NS-1), Y=v=>y1-(y1-y0)*v/1023;
+  let s='<rect width="'+VW+'" height="'+H+'" fill="#fff"/>';
+  [0,256,512,768,1023].forEach(t=>{s+='<line x1="'+x0+'" y1="'+Y(t).toFixed(1)+'" x2="'+x1+'" y2="'+Y(t).toFixed(1)+'" stroke="#eee"/><text x="'+(x0-5)+'" y="'+(Y(t)+4).toFixed(1)+'" font-size="'+fs+'" text-anchor="end" fill="#666">'+t+'</text>';});
+  [0,10,20,30].forEach(mn=>{const xx=x0+(x1-x0)*mn/30;s+='<text x="'+xx.toFixed(1)+'" y="'+(y1+16)+'" font-size="'+fs+'" text-anchor="'+(mn===30?'end':'middle')+'" fill="#666">'+mn+' min</text>';});
+  // banda de histéresis y umbral
+  if(m>0) s+='<rect x="'+x0+'" y="'+Y(Math.min(1023,u+m)).toFixed(1)+'" width="'+(x1-x0)+'" height="'+(Y(Math.max(0,u-m))-Y(Math.min(1023,u+m))).toFixed(1)+'" fill="#f8ede6"/>';
+  s+='<line x1="'+x0+'" y1="'+Y(u).toFixed(1)+'" x2="'+x1+'" y2="'+Y(u).toFixed(1)+'" stroke="#9c4419" stroke-width="2.5" stroke-dasharray="7 4"/>';
+  s+='<text x="'+(x1-2)+'" y="'+(Y(u)-6).toFixed(1)+'" font-size="'+fs+'" text-anchor="end" fill="#9c4419" font-weight="bold">umbral '+u+'</text>';
+  const ser=serie(), sim=simula(ser,u,m);
+  if(n>0){
+    let p=''; for(let i=0;i<n;i++) p+=(i?' L':'M')+X(i).toFixed(1)+' '+Y(ser[i]).toFixed(1);
+    s+='<path d="'+p+'" fill="none" stroke="#263c4a" stroke-width="2"/>';
+    // estado de la farola
+    s+='<text x="'+(x0-5)+'" y="'+(y1+43)+'" font-size="'+fs+'" text-anchor="end" fill="#555">LED</text>';
+    for(let i=0;i<n;i++){ if(sim.est[i]) s+='<rect x="'+(X(i)-(x1-x0)/(NS-1)/2).toFixed(1)+'" y="'+(y1+30)+'" width="'+((x1-x0)/(NS-1)+0.6).toFixed(2)+'" height="18" fill="#ff8a70"/>'; }
+    s+='<rect x="'+x0+'" y="'+(y1+30)+'" width="'+(x1-x0)+'" height="18" fill="none" stroke="#999"/>';
+  }
+  $('gGraf').innerHTML=s;
+  return sim;
+}
+
+function codigo(u,m){
+  const o=op();
+  if(m===0) return K('int')+' lectura = '+F('analogRead')+'(A1);\n'+K('if')+' (lectura '+o+' '+N(u)+') {\n  '+F('digitalWrite')+'('+N(12)+', HIGH);\n} '+K('else')+' {\n  '+F('digitalWrite')+'('+N(12)+', LOW);\n}';
+  const enc=arriba?'lectura < '+N(u-m):'lectura > '+N(u+m), apa=arriba?'lectura > '+N(u+m):'lectura < '+N(u-m);
+  return K('int')+' lectura = '+F('analogRead')+'(A1);\n'+K('if')+' ('+enc+') {\n  '+F('digitalWrite')+'('+N(12)+', HIGH);\n} '+K('else if')+' ('+apa+') {\n  '+F('digitalWrite')+'('+N(12)+', LOW);\n}\n'+C('// entre medias: sigue igual');
+}
+
+function pinta(){
+  $('dA').setAttribute('aria-pressed',arriba); $('dB').setAttribute('aria-pressed',!arriba);
+  const l=+$('luz').value, u=+$('umb').value, m=modo==='farola'?0:+$('mar').value;
+  $('oLuz').value=l===0?'noche':(l===100?'sol':l+' %'); $('oUmb').value=u; $('oMar').value=m?'± '+m:'sin';
+  const e=esquema(l,u);
+  $('cod').innerHTML=codigo(u,m);
+  const vmin=lectura(tension(arriba?0:100)), vmax=lectura(tension(arriba?100:0));
+  let t;
+  if(arriba?u<=vmin:u<vmin) t=(arriba?'<span class="mal">Umbral demasiado bajo:</span> ni de noche la lectura baja de '+vmin+', así que la farola no se encenderá nunca.':'<span class="mal">Umbral demasiado bajo:</span> la lectura nunca baja de '+vmin+': la farola estará siempre encendida.');
+  else if(arriba?u>vmax:u>=vmax) t=(arriba?'<span class="mal">Umbral demasiado alto:</span> ni a pleno sol la lectura pasa de '+vmax+': la farola estará siempre encendida.':'<span class="mal">Umbral demasiado alto:</span> la lectura nunca llega a '+vmax+': la farola no se encenderá nunca.');
+  else t='Lectura <b>'+e.lec+'</b> '+(e.on?'':'no ')+'es '+(arriba?'menor':'mayor')+' que '+u+': '+(e.on?'<span class="bien">D12 a 5 V</span>: el LED rojo luce.':'D12 a 0 V: el LED rojo se apaga.')+(arriba?' Con la LDR arriba, más luz da más lectura: la farola se enciende con lecturas <b>bajas</b> (&lt;).':' Con la LDR abajo, más oscuridad da más lectura: la farola se enciende con lecturas <b>altas</b> (&gt;).');
+  $('res').innerHTML=t;
+  if(!anim){ const sim=grafica(u,m,paso<0?0:NS); resumen(sim,u,m,paso>=0); }
+}
+function resumen(sim,u,m,hecho){
+  if(!hecho){$('res2').innerHTML='Pulsa «Simular el anochecer» para ver cómo responde la farola con este umbral'+(m?' y este margen.':'.');return;}
+  const c=sim.cambios;
+  let t='La farola cambia de estado <b>'+c+' '+(c===1?'vez':'veces')+'</b> en la media hora. ';
+  if(c===0) t+='No llega a encenderse: el umbral queda fuera de las lecturas del anochecer.';
+  else if(c===1) t+=(m?'<span class="bien">Una sola vez:</span> el margen de ±'+m+' absorbe el baile de las lecturas. Enciende al pasar '+(arriba?'por debajo de '+(u-m):'por encima de '+(u+m))+' y ya no vuelve a apagarse por una nube.':'<span class="bien">Una sola vez:</span> con este umbral las nubes no llegan a cruzarlo. Prueba a acercarlo al tramo con más ruido.');
+  else t+=(m?'Aún parpadea: el margen es menor que el baile de las lecturas. Súbelo un poco.':'<span class="mal">Parpadeo:</span> cerca del umbral, cada nube y cada pequeña variación cruzan la línea. Un relé o un motor sufrirían. Prueba la histéresis: un umbral para encender y otro para apagar.');
+  $('res2').innerHTML=t;
+}
+$('play').onclick=()=>{
+  if(anim) return; paso=0; $('play').disabled=true;
+  anim=setInterval(()=>{paso=Math.min(NS,paso+2); grafica(+$('umb').value,+$('mar').value,paso);
+    if(paso>=NS){clearInterval(anim);anim=null;$('play').disabled=false;pinta();}},40);
+};
+$('dA').onclick=()=>{arriba=true;$('umb').value=400;pinta();};
+$('dB').onclick=()=>{arriba=false;$('umb').value=620;pinta();};
+['luz','umb','mar'].forEach(i=>$(i).addEventListener('input',pinta));
+window.addEventListener('resize',pinta);
+pinta();
+})();
+</script>
+</body>
+</html>

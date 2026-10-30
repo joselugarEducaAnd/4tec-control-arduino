@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE10">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>10. Proyecto: montaje por partes | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/scrambled-list/scrambled-list.js"></script><link rel="stylesheet" href="../idevices/scrambled-list/scrambled-list.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE10" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="../html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="../html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li> <a href="../html/7-variables-condiciones-y-bucles.html" class="no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li class="active"> <a href="../html/10-proyecto-montaje-por-partes.html" class="active no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="../html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="../html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE10" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">10. Proyecto: montaje por partes</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE10" class="page-content">
+<article id="20261024TEC4SDA05BLK010" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV010" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV010&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Montar el sistema real comprobando cada sensor y cada actuador por separado antes de juntarlos.</div><h2>El método: probar antes de juntar</h2><p>En el simulador todo funciona a la primera; con piezas reales aparecen cables flojos, sensores que leen distinto y servos enchufados al revés. Por eso se monta y se prueba <b>pieza a pieza</b>, con programas cortos que ya conoces:</p><table><thead><tr><th>Pieza</th><th>Programa de prueba</th><th>Funciona si…</th></tr></thead><tbody><tr><td>LDR, potenciómetro o LM35</td><td>El de leer la LDR y escribir la lectura en el monitor serie, cambiando el pin</td><td>Los números cambian al tapar, girar o calentar</td></tr><tr><td>Ultrasonidos</td><td>El de medir la distancia</td><td>La distancia del monitor coincide más o menos con una regla</td></tr><tr><td>Servo</td><td>El del potenciómetro que mueve el servo</td><td>El servo sigue al potenciómetro</td></tr><tr><td>Motor</td><td>El del motor en los dos sentidos</td><td>Gira hacia los dos lados y se para</td></tr><tr><td>LED y zumbador</td><td>El de parpadeo, cambiando el pin</td><td>Se enciende y se apaga</td></tr></tbody></table><ol class="pasos"><li>Con el USB desconectado, monta la primera pieza.</li><li>Sube su programa de prueba y comprueba que funciona. Si no, arréglalo ahora: todavía solo hay una cosa que pueda fallar.</li><li>Apunta en la tabla de pruebas lo que mide o hace de verdad (por ejemplo, los valores de la LDR con luz y a oscuras).</li><li>Repite con la siguiente pieza.</li><li>Cuando todas funcionan solas, sube el programa del gemelo.</li></ol><div class="idea"><b>Idea clave.</b> Los valores reales no tienen por qué coincidir con los del simulador. Si la LDR real da 650 con luz y Tinkercad daba 900, el umbral del programa se ajusta a la LDR real.</div><div class="falla"><b>Si algo falla</b><table><thead><tr><th>Lo que ves</th><th>Qué compruebas</th></tr></thead><tbody><tr><td>Nada funciona</td><td>¿Está el USB conectado y el programa subido? ¿Has elegido el puerto?</td></tr><tr><td>Una pieza funciona sola pero no con el resto</td><td>Mira la tabla de pines: ¿hay dos piezas en el mismo pin?</td></tr><tr><td>El servo se mueve a tirones cuando arranca el motor</td><td>El motor tiene que ir alimentado desde el módulo de la protoboard, con GND común.</td></tr><tr><td>Lecturas que bailan mucho</td><td>Revisa que los cables de la protoboard estén bien clavados; mueve el cable y mira si cambia.</td></tr></tbody></table></div><p>Al terminar, anotad qué ya funciona y qué no, y actualizad el Kanban. Recoged todo el material en su caja.</p>
+</div>
+</div>
+</article><article id="block-1792837521098-3uwff8xng" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Compruébalo</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1792837521062-0d1i9ltdl" class="idevice_node scrambled-list" data-idevice-path="../idevices/scrambled-list/" data-idevice-type="scrambled-list" data-idevice-component-type="json" data-idevice-json-data="{&quot;typeGame&quot;:&quot;ScrambledList&quot;,&quot;instructions&quot;:&quot;&lt;p&gt;Ordena los pasos para montar el sistema real sin perderte.&lt;/p&gt;&quot;,&quot;textAfter&quot;:&quot;&quot;,&quot;afterElement&quot;:&quot;&quot;,&quot;options&quot;:[&quot;Desconectar el USB y montar la primera pieza&quot;,&quot;Subir su programa de prueba y comprobar que funciona&quot;,&quot;Apuntar lo que mide o hace de verdad&quot;,&quot;Repetir con la siguiente pieza&quot;,&quot;Subir el programa completo del gemelo&quot;],&quot;time&quot;:0,&quot;buttonText&quot;:&quot;Comprobar&quot;,&quot;rightText&quot;:&quot;¡Bien! Una pieza cada vez, y el programa completo al final.&quot;,&quot;wrongText&quot;:&quot;Empieza con el USB desconectado y deja el programa completo para el final.&quot;,&quot;isScorm&quot;:0,&quot;textButtonScorm&quot;:&quot;Guardar la puntuación&quot;,&quot;repeatActivity&quot;:true,&quot;weighted&quot;:100,&quot;evaluation&quot;:false,&quot;evaluationID&quot;:&quot;ba045cdc-0c42-4929-9f1a-60ed64d395a5&quot;,&quot;main&quot;:&quot;slidevice-1785313481782-rk7vxek4h&quot;,&quot;msgs&quot;:{&quot;msgScoreScorm&quot;:&quot;La puntuación no se puede guardar porque esta página no forma parte  de un paquete SCORM.&quot;,&quot;msgYouScore&quot;:&quot;Su puntuación&quot;,&quot;msgScore&quot;:&quot;Puntuación&quot;,&quot;msgWeight&quot;:&quot;Peso&quot;,&quot;msgYouLastScore&quot;:&quot;La última puntuación guardada es&quot;,&quot;msgOnlySaveScore&quot;:&quot;¡Solo puede guardar la puntuación una vez!&quot;,&quot;msgOnlySave&quot;:&quot;Solo puede guardar una vez&quot;,&quot;msgOnlySaveAuto&quot;:&quot;Su puntuación se guardará después de cada pregunta. Solo puede jugar una vez.&quot;,&quot;msgSaveAuto&quot;:&quot;Su puntuación se guardará automáticamente después de cada pregunta.&quot;,&quot;msgSeveralScore&quot;:&quot;Puede guardar la puntuación tantas veces como quiera&quot;,&quot;msgPlaySeveralTimes&quot;:&quot;Puede realizar esta actividad cuantas veces quiera&quot;,&quot;msgActityComply&quot;:&quot;Ya ha realizado esta actividad.&quot;,&quot;msgUncompletedActivity&quot;:&quot;Actividad no completada&quot;,&quot;msgSuccessfulActivity&quot;:&quot;Actividad superada. Puntuación: %s&quot;,&quot;msgUnsuccessfulActivity&quot;:&quot;Actividad no superada. Puntuación: %s&quot;,&quot;msgTypeGame&quot;:&quot;Lista desordenada&quot;,&quot;msgStartGame&quot;:&quot;Pulsa aquí para empezar&quot;,&quot;msgSubmit&quot;:&quot;Enviar&quot;,&quot;msgPlayStart&quot;:&quot;Pulsa aquí para jugar&quot;,&quot;msgTime&quot;:&quot;Tiempo por pregunta&quot;,&quot;msgCheck&quot;:&quot;Comprobar&quot;,&quot;msgSaveScore&quot;:&quot;Guardar la puntuación&quot;,&quot;msgTestFailed&quot;:&quot;No has superado la prueba. Inténtalo de nuevo&quot;,&quot;msgRetryAttempts&quot;:&quot;Has cometido %s errores. Te quedan %s intentos. ¿Quieres intentarlo de nuevo?&quot;},&quot;scorerp&quot;:0,&quot;idevice&quot;:&quot;idevice_node&quot;,&quot;showSolutions&quot;:true,&quot;attemptsNumber&quot;:1,&quot;id&quot;:&quot;idevice-1792837521062-0d1i9ltdl&quot;}" data-idevice-template="scrambled-list.html">
+<div class="exe-sortableList" id="slidevice-1792837521062-0d1i9ltdl" scorm=false>
+    <div class="game-evaluation-ids js-hidden" data-id="idevice-1792837521062-0d1i9ltdl" data-evaluationb="false" data-evaluationid="ba045cdc-0c42-4929-9f1a-60ed64d395a5"></div>
+    <div class="exe-sortableList-instructions"><p>Ordena los pasos para montar el sistema real sin perderte.</p></div>
+    <ul class="exe-sortableList-list"><li data-orig-index="0">Desconectar el USB y montar la primera pieza</li>
+<li data-orig-index="1">Subir su programa de prueba y comprobar que funciona</li>
+<li data-orig-index="2">Apuntar lo que mide o hace de verdad</li>
+<li data-orig-index="3">Repetir con la siguiente pieza</li>
+<li data-orig-index="4">Subir el programa completo del gemelo</li></ul>
+    <div style="display:none">
+        <p class="exe-sortableList-buttonText">Comprobar</p>
+        <p class="exe-sortableList-rightText">¡Bien! Una pieza cada vez, y el programa completo al final.</p>
+        <p class="exe-sortableList-wrongText">Empieza con el USB desconectado y deja el programa completo para el final.</p>
+    </div>
+    <div class="exe-scorm-message"></div>
+    
+</div>
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/9-proyecto-el-sistema-en-el-simulador.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/11-proyecto-integrar-y-depurar.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es" id="exe-20261024TEC4SDA05PAGE07">
+<head>
+<meta charset="utf-8">
+<meta name="generator" content="eXeLearning v4.0.6">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="exe-pass-score" content="5">
+<link rel="license" type="text/html" href="https://creativecommons.org/licenses/by-sa/4.0/">
+<title>7. Variables, condiciones y bucles | Sistemas que reaccionan</title>
+<link rel="icon" type="image/x-icon" href="../libs/favicon.ico">
+<meta name="description" content="Control programado con Arduino: sensores, decisiones y actuadores">
+<script>document.querySelector("html").classList.add("js");</script><script src="../libs/jquery/jquery.min.js"> </script><script src="../libs/common_i18n.js"> </script><script src="../libs/common.js"> </script><script src="../libs/exe_export.js"> </script><script src="../libs/bootstrap/bootstrap.bundle.min.js"> </script><link rel="stylesheet" href="../libs/bootstrap/bootstrap.min.css">
+<script src="../idevices/text/text.js"></script><link rel="stylesheet" href="../idevices/text/text.css">
+<script src="../idevices/trueorfalse/trueorfalse.js"></script><link rel="stylesheet" href="../idevices/trueorfalse/trueorfalse.css">
+<link rel="stylesheet" href="../content/css/base.css"><script src="../theme/style.js"> </script><script src="../theme/zzz-majuelo.js"> </script><link rel="stylesheet" href="../theme/style.css"><link rel="stylesheet" href="../theme/zzz-majuelo.css">
+</head>
+<body class="exe-export exe-web-site">
+<script>document.body.className+=" js"</script>
+<div class="exe-content exe-export pre-js siteNav-hidden"><a href="#20261024TEC4SDA05PAGE07" id="skipNav">Skip to content</a> <nav id="siteNav">
+<ul>
+<li> <a href="../index.html" class="main-node no-ch">Sistemas que reaccionan</a>
+</li>
+<li> <a href="../html/1-sistemas-de-control.html" class="no-ch">1. Sistemas de control</a>
+</li>
+<li> <a href="../html/2-arduino-tu-primer-programa.html" class="no-ch">2. Arduino: tu primer programa</a>
+</li>
+<li> <a href="../html/3-pulsadores-y-pwm.html" class="no-ch">3. Pulsadores y PWM</a>
+</li>
+<li> <a href="../html/4-sensores-analogicos-la-ldr.html" class="no-ch">4. Sensores analógicos: la LDR</a>
+</li>
+<li> <a href="../html/5-servo-y-ultrasonidos.html" class="no-ch">5. Servo y ultrasonidos</a>
+</li>
+<li> <a href="../html/6-motores-con-driver.html" class="no-ch">6. Motores con driver</a>
+</li>
+<li class="active"> <a href="../html/7-variables-condiciones-y-bucles.html" class="active no-ch">7. Variables, condiciones y bucles</a>
+</li>
+<li> <a href="../html/8-tu-proyecto-elegir-y-planificar.html" class="no-ch">8. Tu proyecto: elegir y planificar</a>
+</li>
+<li> <a href="../html/9-proyecto-el-sistema-en-el-simulador.html" class="no-ch">9. Proyecto: el sistema en el simulador</a>
+</li>
+<li> <a href="../html/10-proyecto-montaje-por-partes.html" class="no-ch">10. Proyecto: montaje por partes</a>
+</li>
+<li> <a href="../html/11-proyecto-integrar-y-depurar.html" class="no-ch">11. Proyecto: integrar y depurar</a>
+</li>
+<li> <a href="../html/12-pruebas-finales-y-memoria-tecnica.html" class="no-ch">12. Pruebas finales y memoria técnica</a>
+</li>
+<li> <a href="../html/13-demostracion-y-entrega.html" class="no-ch">13. Demostración y entrega</a>
+</li>
+<li> <a href="../html/14-preparar-el-examen.html" class="no-ch">14. Preparar el examen</a>
+</li>
+<li> <a href="../html/chuleta-pines-y-ordenes.html" class="no-ch">Chuleta: pines y órdenes</a>
+</li>
+</ul>
+</nav><main id="20261024TEC4SDA05PAGE07" class="page"> 
+<header class="main-header">
+<div class="package-header"><p class="package-title">Sistemas que reaccionan</p></div>
+<div class="page-header"><h1 class="page-title">7. Variables, condiciones y bucles</h1></div>
+</header><div id="page-content-20261024TEC4SDA05PAGE07" class="page-content">
+<article id="20261024TEC4SDA05BLK007" class="box no-header">
+<header class="box-head no-icon">
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="20261024TEC4SDA05IDEV007" class="idevice_node text" data-idevice-path="../idevices/text/" data-idevice-type="text" data-idevice-component-type="json" data-idevice-json-data="{&quot;ideviceId&quot;:&quot;20261024TEC4SDA05IDEV007&quot;}">
+<style>.exe-content{--chrome:#2c6046;--chrome-osc:#1e4431;--chrome-tinte:#eef5f0;--chrome-linea:#c5dccd}p,li{line-height:1.65}h2{margin-top:1.8em}.pasos li{margin:.6em 0}figure{margin:1.4em auto;max-width:900px}figure img{display:block;width:100%;height:auto;margin:auto}figcaption{font-size:.92em;color:#496260}.fig-estrecha{max-width:460px}.fig-media{max-width:640px}table{width:100%;border-collapse:collapse;margin:1em 0;font-size:.95em}th,td{padding:.55em;border:1px solid #c5dccd;vertical-align:top}th{background:#eef5f0}details{padding:.7em;border:1px solid #c5dccd;border-radius:8px;margin:.7em 0}summary{cursor:pointer;font-weight:700;min-height:44px;display:list-item;padding:.4em 0}.meta{border-left:5px solid #2c6046;background:#eef5f0;padding:.8em 1em;margin:1em 0}.idea{border-left:5px solid #176c9a;background:#eef6fb;padding:1em;margin:1em 0}.ahora{border-left:5px solid #2f6fb0;background:#f0f5fb;padding:1em;margin:1.2em 0}.ahora>p:first-child{margin-top:0}.reto{border:2px solid #2f6fb0;border-radius:10px;padding:1em 1.1em;margin:1.4em 0;background:#fff}.reto>.reto-tit{color:#2f6fb0;font-weight:700;font-size:1.1em;margin:0 0 .5em}.falla{border-left:5px solid #b26a00;background:#fff6e5;padding:1em;margin:1em 0}.ampliacion{border-left:5px solid #9b4a86;background:#f8f0f6;padding:1em;margin:1em 0}.formula{font-size:1.5em;font-weight:700;text-align:center;margin:.6em 0}pre.codigo{background:#f6f8f7;border:1px solid #c5dccd;border-radius:8px;padding:.9em 1em;overflow-x:auto;font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;font-size:.88em;line-height:1.5;margin:1em 0;white-space:pre}pre.codigo code{padding:0;background:none}p.cod-tit{font-weight:700;margin:1.2em 0 -.4em;color:#1e4431}code{font-family:"DejaVu Sans Mono",Menlo,Consolas,monospace;background:#f1f4f2;padding:0 .25em;border-radius:3px}iframe{display:block;margin:1em 0;border:1px solid #c5dccd;border-radius:12px}@media print{details>*{display:block!important}figure{break-inside:avoid}h2,h3{break-after:avoid}pre.codigo{white-space:pre-wrap}}</style><div class="meta"><b>Qué vas a conseguir.</b> Escribir programas de control ordenados con variables, condiciones compuestas y bucles, y evitar que una salida parpadee cuando el sensor está justo en el límite.</div><h2>Variables</h2><p>Una <b>variable</b> es un nombre que guarda un valor que puede cambiar mientras el programa funciona. Antes de usarla hay que decir de qué <b>tipo</b> es:</p><table><thead><tr><th>Tipo</th><th>Qué guarda</th><th>Ejemplo</th></tr></thead><tbody><tr><td><code>int</code></td><td>Números enteros</td><td><code>int luz = analogRead(A1);</code></td></tr><tr><td><code>float</code></td><td>Números con decimales (con punto)</td><td><code>float distancia = 20.5;</code></td></tr><tr><td><code>bool</code></td><td>Verdadero o falso: <code>true</code> o <code>false</code></td><td><code>bool encendida = false;</code></td></tr><tr><td><code>const int</code></td><td>Un entero que no cambia nunca (los pines, los límites)</td><td><code>const int FAROLA = 12;</code></td></tr></tbody></table><p>Pon nombres que digan lo que guardan: <code>distancia</code> se entiende; <code>x</code>, no. Los nombres no llevan espacios, tildes ni eñes.</p><h2>Condiciones</h2><p>Con <code>else if</code> se encadenan varias preguntas: se comprueban por orden y solo se hace la primera que se cumple.</p><pre class="codigo"><code>if (luz &lt; 300) {
+  // muy oscuro
+} else if (luz &lt; 600) {
+  // penumbra
+} else {
+  // mucha luz
+}</code></pre><p>Para unir condiciones se usan las puertas lógicas de la unidad de electrónica digital:</p><table><thead><tr><th>Se escribe</th><th>Puerta</th><th>Ejemplo</th></tr></thead><tbody><tr><td><code>&amp;&amp;</code></td><td>AND (y)</td><td><code>if (luz &lt; 300 &amp;&amp; distancia &lt; 20)</code>: oscuro <b>y</b> alguien cerca</td></tr><tr><td><code>||</code></td><td>OR (o)</td><td><code>if (manual || encendida)</code>: en manual <b>o</b> si ya tocaba encender</td></tr><tr><td><code>!</code></td><td>NOT (no)</td><td><code>if (!manual)</code>: si <b>no</b> está en manual</td></tr></tbody></table><table><thead><tr><th>Compara</th><th>Significa</th></tr></thead><tbody><tr><td><code>==</code></td><td>igual</td></tr><tr><td><code>!=</code></td><td>distinto</td></tr><tr><td><code>&lt;</code>  <code>&gt;</code></td><td>menor, mayor</td></tr><tr><td><code>&lt;=</code>  <code>&gt;=</code></td><td>menor o igual, mayor o igual</td></tr></tbody></table><div class="ahora"><p><b>Ahora tú.</b> Con <code>luz = 450</code> y <code>distancia = 35</code>, ¿se cumple <code>luz &lt; 500 &amp;&amp; distancia &lt; 30</code>? ¿Y <code>luz &lt; 500 || distancia &lt; 30</code>?</p><details><summary>Ver solución</summary><p>La primera <b>no</b>: la luz cumple, pero la distancia no, y AND necesita las dos. La segunda <b>sí</b>: OR se conforma con una.</p></details></div><h2>Bucles</h2><ul><li><code>loop()</code> ya es un bucle: se repite siempre. Es el lazo de control: leer, decidir, actuar.</li><li><code>for</code> repite un número conocido de veces, como la rampa del motor.</li><li><code>while (condición) { … }</code> repite <b>mientras</b> se cumpla la condición. Por ejemplo, <code>while (digitalRead(SW1) == LOW) { }</code> espera hasta que sueltes el pulsador.</li></ul><h2>El parpadeo junto al umbral</h2><p>Con la farola del reto R3 pasa algo cuando anochece: la luz no baja de forma limpia, tiembla un poco. Cuando está justo en el umbral, la lectura pasa por encima y por debajo, y la farola se enciende y se apaga muchas veces seguidas.</p><figure><a href="../content/resources/histeresis.svg" target="_blank" rel="noopener" title="Ampliar imagen"><img src="../content/resources/histeresis.svg" alt="Con un umbral la farola parpadea mientras la luz tiembla cerca del límite; con dos umbrales se enciende una vez y se queda encendida."/></a><figcaption>Con dos umbrales separados, el temblor de la luz ya no basta para cambiar el estado. <a href="../content/resources/histeresis.svg" target="_blank" rel="noopener">Ampliar (nueva pestaña)</a>.</figcaption></figure><p>La solución se llama <b>histéresis</b>: dos umbrales. Se enciende cuando la luz baja de uno y solo se apaga cuando sube por encima del otro. Entre los dos, se queda como estaba; para eso hace falta una variable que <b>recuerde</b> el estado.</p><iframe src="../content/resources/widgets/umbral.html" name="anochecer" title="Parpadeo junto al umbral e histéresis" width="100%" height="1250" loading="lazy" style="border:1px solid #c5dccd;border-radius:12px"></iframe><p class="cod-tit">Ejemplo: farola con histéresis</p><pre class="codigo"><code>// Farola con histéresis: dos umbrales en vez de uno
+const int LDR = A1;
+const int FAROLA = 12;
+const int ENCENDER = 300;        // con menos luz que esto, se enciende
+const int APAGAR = 400;          // con más luz que esto, se apaga
+bool encendida = false;          // la variable recuerda cómo está
+
+void setup() {
+  pinMode(FAROLA, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int luz = analogRead(LDR);
+  Serial.println(luz);
+  if (luz &lt; ENCENDER) {
+    encendida = true;
+  } else if (luz &gt; APAGAR) {
+    encendida = false;
+  }
+  // entre 300 y 400 no se cambia nada: se queda como estaba
+  if (encendida) {
+    digitalWrite(FAROLA, HIGH);
+  } else {
+    digitalWrite(FAROLA, LOW);
+  }
+  delay(200);
+}</code></pre><div class="ahora"><p><b>Ahora tú.</b> La farola está apagada y la luz baja a 350. ¿Se enciende? ¿Y si estaba encendida y la luz sube a 350?</p><details><summary>Ver solución</summary><p>En los dos casos <b>se queda como estaba</b>: 350 está entre los dos umbrales (300 y 400). Apagada sigue apagada y encendida sigue encendida.</p></details></div><h2>El reto de hoy</h2><div class="reto"><p class="reto-tit">Reto R6 · Farola con modo manual</p><p>Parte de la farola con histéresis y añádele un <b>modo manual</b>: al pulsar SW1, la farola se queda encendida pase lo que pase y se enciende el LED azul (13) como aviso; al pulsar SW2, vuelve al modo automático y el LED azul se apaga. Usa una variable <code>bool</code> llamada <code>manual</code> y comenta tu programa.</p><p><b>Está conseguido cuando…</b> en la placa, el modo automático funciona sin parpadeos, SW1 y SW2 cambian de modo y el programa lleva comentarios que explican cada parte.</p><details><summary>Si te atascas: el programa con huecos</summary><p>Rellena cada <b>____</b>: cada hueco es una palabra, un número o un signo que ya has visto en esta página.</p><pre class="codigo"><code>// Reto R6: farola con histéresis y modo manual
+const int LDR = A1;
+const int FAROLA = 12;
+const int AVISO_MANUAL = 13;     // LED azul: estamos en modo manual
+const int SW1 = 2;               // pasa a manual
+const int SW2 = 3;               // vuelve a automático
+const int ENCENDER = ____;
+const int APAGAR = ____;
+bool encendida = false;
+bool manual = ____;
+
+void setup() {
+  pinMode(FAROLA, OUTPUT);
+  pinMode(AVISO_MANUAL, OUTPUT);
+  pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (digitalRead(SW1) == LOW) {
+    manual = ____;
+  }
+  if (digitalRead(SW2) == LOW) {
+    manual = ____;
+  }
+  int luz = analogRead(LDR);
+  Serial.println(luz);
+  if (luz &lt; ENCENDER) {          // histéresis, como en el ejemplo
+    encendida = true;
+  } else if (luz &gt; APAGAR) {
+    encendida = false;
+  }
+  if (____ || encendida) {     // en manual, siempre encendida
+    digitalWrite(FAROLA, HIGH);
+  } else {
+    digitalWrite(FAROLA, LOW);
+  }
+  if (manual) {
+    digitalWrite(AVISO_MANUAL, HIGH);
+  } else {
+    digitalWrite(AVISO_MANUAL, LOW);
+  }
+  delay(200);
+}</code></pre></details><p><b>Cuando funcione en la placa:</b> enséñalo funcionando para que se anote en la lista de los retos. Después, en la tarea de Moodle <b>Retos Arduino (código)</b>, pulsa <b>Editar entrega</b> (la primera vez, <b>Agregar entrega</b>), escribe <b>R6</b> y pega debajo tu programa. Pulsa <b>Guardar cambios</b>. Cada reto nuevo va debajo del anterior.</p></div><div class="ampliacion"><b>Para ir más allá.</b> Que el modo manual se active y se desactive con el mismo pulsador. Pista: <code>manual = !manual;</code> le da la vuelta a la variable, y luego hay que esperar a que se suelte el pulsador con un <code>while</code>.</div>
+</div>
+</div>
+</article><article id="block-1792837521452-y4baaje5d" class="box">
+<header class="box-head no-icon">
+<h1 class="box-title">Compruébalo</h1>
+<button class="box-toggle box-toggle-on" title="Toggle content">
+<span>Toggle content</span>
+</button></header>
+<div class="box-content">
+<div id="idevice-1792837521565-w0kn171ag" class="idevice_node trueorfalse" data-idevice-path="../idevices/trueorfalse/" data-idevice-type="trueorfalse" data-idevice-component-type="json" data-idevice-json-data="{&quot;id&quot;:&quot;idevice-1792837521565-w0kn171ag&quot;,&quot;typeGame&quot;:&quot;TrueOrFalse&quot;,&quot;eXeGameInstructions&quot;:&quot;&lt;p&gt;Decide si cada frase es verdadera o falsa.&lt;/p&gt;&quot;,&quot;eXeIdeviceTextAfter&quot;:&quot;&quot;,&quot;msgs&quot;:{&quot;msgStartGame&quot;:&quot;Pulsa aquí para empezar&quot;,&quot;msgTime&quot;:&quot;Tiempo por pregunta&quot;,&quot;msgNoImage&quot;:&quot;Pregunta sin imágenes&quot;,&quot;msgScoreScorm&quot;:&quot;La puntuación no se puede guardar porque esta página no forma parte  de un paquete SCORM.&quot;,&quot;msgEndGameScore&quot;:&quot;Comience la partida antes de guardar la puntuación.&quot;,&quot;msgOnlySaveScore&quot;:&quot;¡Solo puede guardar la puntuación una vez!&quot;,&quot;msgOnlySave&quot;:&quot;Solo puede guardar una vez&quot;,&quot;msgYouScore&quot;:&quot;Su puntuación&quot;,&quot;msgAuthor&quot;:&quot;Autoría&quot;,&quot;msgOnlySaveAuto&quot;:&quot;Su puntuación se guardará después de cada pregunta. Solo puede jugar una vez.&quot;,&quot;msgSaveAuto&quot;:&quot;Su puntuación se guardará automáticamente después de cada pregunta.&quot;,&quot;msgSeveralScore&quot;:&quot;Puede guardar la puntuación tantas veces como quiera&quot;,&quot;msgYouLastScore&quot;:&quot;La última puntuación guardada es&quot;,&quot;msgActityComply&quot;:&quot;Ya ha realizado esta actividad.&quot;,&quot;msgPlaySeveralTimes&quot;:&quot;Puede realizar esta actividad cuantas veces quiera&quot;,&quot;msgUncompletedActivity&quot;:&quot;Actividad no completada&quot;,&quot;msgSuccessfulActivity&quot;:&quot;Actividad superada. Puntuación: %s&quot;,&quot;msgUnsuccessfulActivity&quot;:&quot;Actividad no superada. Puntuación: %s&quot;,&quot;msgTypeGame&quot;:&quot;Verdadero o falso&quot;,&quot;msgFeedback&quot;:&quot;Retroalimentación&quot;,&quot;msgSuggestion&quot;:&quot;Sugerencia&quot;,&quot;msgSolution&quot;:&quot;Solución&quot;,&quot;msgQuestion&quot;:&quot;Pregunta&quot;,&quot;msgTrue&quot;:&quot;Verdadero&quot;,&quot;msgFalse&quot;:&quot;Falso&quot;,&quot;msgOk&quot;:&quot;Correcto&quot;,&quot;msgKO&quot;:&quot;Incorrecto&quot;,&quot;msgShow&quot;:&quot;Mostrar&quot;,&quot;msgHide&quot;:&quot;Ocultar&quot;,&quot;msgCheck&quot;:&quot;Comprobar&quot;,&quot;msgReboot&quot;:&quot;¡Prueba otra vez!&quot;,&quot;msgScore&quot;:&quot;Puntuación&quot;,&quot;msgWeight&quot;:&quot;Peso&quot;,&quot;msgNext&quot;:&quot;Siguiente&quot;,&quot;msgPrevious&quot;:&quot;Anterior&quot;},&quot;questionsRandom&quot;:false,&quot;percentageQuestions&quot;:100,&quot;isTest&quot;:false,&quot;time&quot;:0,&quot;questionsGame&quot;:[{&quot;question&quot;:&quot;&lt;p&gt;Una variable float puede guardar el valor 20.5.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. float guarda números con decimales, escritos con punto.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Qué tipo admite decimales?&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;luz &lt; 500 &amp;&amp; distancia &lt; 30 se cumple aunque solo se cumpla una de las dos.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Con &amp;&amp; (AND) tienen que cumplirse las dos. Con || bastaría una.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;Piensa en la puerta AND de la unidad de electrónica digital.&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;Con histéresis, si la lectura está entre los dos umbrales, la farola se queda como estaba.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. Por eso hace falta una variable que recuerde el estado.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Qué hace el programa del ejemplo entre 300 y 400?&lt;/p&gt;&quot;,&quot;solution&quot;:1},{&quot;question&quot;:&quot;&lt;p&gt;Una constante (const int) puede cambiar de valor dentro de loop().&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;No. Por eso se usa para los pines y los límites, que no cambian.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;¿Qué significa «constante»?&lt;/p&gt;&quot;,&quot;solution&quot;:0},{&quot;question&quot;:&quot;&lt;p&gt;manual = !manual; le da la vuelta a una variable bool.&lt;/p&gt;&quot;,&quot;feedback&quot;:&quot;&lt;p&gt;Sí. Si valía true pasa a false, y al revés.&lt;/p&gt;&quot;,&quot;suggestion&quot;:&quot;&lt;p&gt;es la puerta NOT.&lt;/p&gt;&quot;,&quot;solution&quot;:1}],&quot;isScorm&quot;:0,&quot;textButtonScorm&quot;:&quot;Guardar la puntuación&quot;,&quot;repeatActivity&quot;:true,&quot;weighted&quot;:100,&quot;evaluation&quot;:false,&quot;evaluationID&quot;:&quot;&quot;,&quot;showSlider&quot;:false,&quot;ideviceId&quot;:&quot;idevice-1785313017315-5i36ev3um&quot;}" data-idevice-template="trueorfalse.html">
+<div class="exe-trueorfalse-container">
+  
+    <div class="game-evaluation-ids js-hidden" data-id="idevice-1792837521565-w0kn171ag" data-evaluationb="false" data-evaluationid=""></div>
+        <div class="TOFP-instructions"><p>Decide si cada frase es verdadera o falsa.</p></div>
+        <div class="TOFP-MainContainer" data-instance="idevice-1792837521565-w0kn171ag" id="tofPMainContainer-idevice-1792837521565-w0kn171ag">
+            <div class="TOFP-GameContainer" id="tofPGameContainer-idevice-1792837521565-w0kn171ag">
+                <div class="TOFP-GameScoreBoard TOFP-EHidden">
+                    <div class="TOFP-TimeNumber">
+                        <strong><span class="sr-av">Tiempo por pregunta:</span></strong>
+                        <p id="tofPPTime-idevice-1792837521565-w0kn171ag" class="TOFP-PTime">00:00:</p>
+                    </div>
+                </div>
+                <div class="TOFP-MessgeDiv" id="tofPMessageDiv-idevice-1792837521565-w0kn171ag">
+                    <div class="TOFP-Message" id="tofPMessage-idevice-1792837521565-w0kn171ag"></div>
+                </div>
+                <div class="TOFP-StartGameDiv TOFP-EHidden" id="tofPStartGameDiv-idevice-1792837521565-w0kn171ag">
+                    <button  id="tofPStartGame-idevice-1792837521565-w0kn171ag" type="button" class="btn btn-primary">Pulsa aquí para empezar</button>
+                </div>
+                <div class="TOFP-Multimedia " id="tofPMultimedia-idevice-1792837521565-w0kn171ag">
+                </div>
+                <div class="TOFP-CheckTestDiv TOFP-EHidden" id="tofPCheckTestDiv-idevice-1792837521565-w0kn171ag">
+                    <button id="tofPCheckTest-idevice-1792837521565-w0kn171ag" type="button" class="btn btn-primary">Comprobar</button>
+                    <button id="tofRebootTest-idevice-1792837521565-w0kn171ag" type="button" class="btn btn-primary TOFP-EHidden">¡Prueba otra vez!</button>
+                </div>
+        </div> 
+        <div class="Games-BottonContainer">
+            <div class="Games-GetScore">
+                <input id="tofPSendScore-idevice-1792837521565-w0kn171ag" type="button" value="Guardar la puntuación" class="feedbackbutton Games-SendScore" style="display:none"/> <span class="Games-RepeatActivity"></span>
+            </div>
+        </div>
+        <div class="TOFP-After"></div>
+        <div class="questionsMedia" style="display:none"></div>
+</div>
+
+</div>
+</div>
+</article>
+</div></main><div class="nav-buttons">
+<a href="../html/6-motores-con-driver.html" title="Anterior" class="nav-button nav-button-left"><span>Anterior</span></a>
+<a href="../html/8-tu-proyecto-elegir-y-planificar.html" title="Siguiente" class="nav-button nav-button-right"><span>Siguiente</span></a>
+</div>
+<footer id="siteFooter"><div id="siteFooterContent"> <div id="packageLicense" class="cc cc-by-sa"> <p> <span class="license-label">Licencia: </span><a href="https://creativecommons.org/licenses/by-sa/4.0/" class="license">Creative Commons: Reconocimiento - compartir igual 4.0</a></p>
+</div>
+</div></footer>
+</div>
+
+</body>
+</html>
